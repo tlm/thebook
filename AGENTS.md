@@ -35,4 +35,5 @@ read, not instruction precedence.
 | --- | --- | --- |
 | [Security](security/AGENTS.md) | All agent work | Default |
 | [Language](language.md) | Written language and spelling | Default |
+| [Judgement](judgement.md) | All agent work | Default |
 | [Go](go/AGENTS.md) | Go code, tests, APIs, design or docs | Conditional |
