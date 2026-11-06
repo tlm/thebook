@@ -37,3 +37,25 @@ read, not instruction precedence.
 | [Language](language.md) | Written language and spelling | Default |
 | [Judgement](judgement.md) | All agent work | Default |
 | [Go](go/AGENTS.md) | Go code, tests, APIs, design or docs | Conditional |
+
+## Workflows
+
+Workflows are reusable orchestration guides for substantial areas of
+development work. They define how work progresses towards an outcome,
+including collaboration, decision points, and validation. Workflows may
+span multiple context windows and may be combined to achieve a larger
+goal.
+
+Each workflow is a Markdown file in `workflows/`, with YAML frontmatter
+containing a `name` and `description`, followed by its instructions.
+
+Read a workflow only when the user asks to execute it, or when its
+description matches the current task and you judge it suitable. An index
+entry alone does not activate a workflow. Once selected, follow its
+instructions within the task's scope and the applicable harness guidance.
+
+### [Feature specification](workflows/feature-specification.md)
+
+- **Applies to:** collaboratively explore a feature within a product and
+  define its user-facing behaviour and contract.
+- **Read policy:** Conditional.
