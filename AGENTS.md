@@ -33,5 +33,6 @@ read, not instruction precedence.
 
 | Guidance | Applies to | Read policy |
 | --- | --- | --- |
+| [Security](security/AGENTS.md) | All agent work | Default |
 | [Language](language.md) | Written language and spelling | Default |
 | [Go](go/AGENTS.md) | Go code, tests, APIs, design or docs | Conditional |
