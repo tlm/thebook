@@ -76,6 +76,72 @@ no research is currently needed. Framing may be revisited as findings or
 other context become available; it does not need to finish before research
 execution can proceed.
 
+### Research Execution
+
+**Name:** `research-execution`
+
+**Purpose:** investigate prepared briefs and collect evidence-backed
+findings that inform the feature.
+
+**Instructions:**
+
+- Read the prepared briefs and existing research-execution records before
+  assigning work. Identify new or revised briefs that need investigation;
+  do not repeat completed or outstanding assignments without a reason.
+- Start with ready briefs; framing does not need to finish first. Return
+  questions that cannot be investigated within their scope to framing.
+- Select a skill from the list below that fits each brief. Read its
+  instructions before use. If no skill fits, report the gap rather than
+  silently substituting an unrelated skill.
+- Allocate a findings file using the shared working-file naming convention
+  before delegation. Ensure its parent directory exists, but do not
+  pre-create the findings file; the researcher creates it when writing
+  results. Give each subagent its brief, the selected skill's location,
+  the output path, and enough context to work independently.
+  Require it to load the skill and its operating context; do not assume
+  it inherits the coordinating agent's conversation or guidance.
+- Delegate independent briefs in parallel when supported. Keep assignments
+  bounded to one primary question each. If delegation is unavailable,
+  execute them directly using the same skill and recording conventions.
+- Decide whether each assignment needs scratch storage before starting it.
+  When needed and permitted, allocate a separate scratch directory for the
+  assignment and supply its path explicitly. The researcher may create
+  that directory if missing. Otherwise, state that no scratch directory
+  is supplied; the researcher must not use temporary storage and must
+  report a blocker if it becomes necessary.
+- Keep durable findings in the assigned output file, never only in scratch
+  storage. Scratch contents have no preservation guarantee.
+- Maintain assignment status in the workflow record's `research-execution`
+  section, linking each consumed brief and expected findings file. Record
+  the skill used and subagent identifier when available. Subagents write
+  their assigned findings, not the shared workflow record.
+- On receiving a result, confirm the findings exist and address the brief,
+  with supporting references and material limitations. Record completion,
+  blockers, or failure accurately; an assigned output path is not proof
+  that research completed.
+- Preserve earlier findings when further investigation is needed. Allocate
+  a new attempt for a repeated assignment, or return a changed question to
+  framing for a revised brief. Record the reason and relevant links.
+- Summarise material implications and unresolved questions in the execution
+  section, linking to findings rather than copying them. Keep research
+  evidence distinct from agreed feature requirements.
+- If there are no ready briefs, record that outcome rather than inventing
+  research work.
+
+**Available skills:**
+
+- [Research question](../skills/research-question/SKILL.md): investigate one
+  bounded question from a prepared brief and produce concise,
+  evidence-backed findings. Use for the research briefs defined above.
+
+Listing a skill does not activate it. Load the selected skill when its
+assignment is ready to execute.
+
+**Outcome:** findings linked to their briefs, with assignment status,
+material implications, and remaining gaps recorded. Execution may be
+revisited as further briefs become ready; research findings do not by
+themselves establish agreed feature requirements.
+
 ## Output
 
 A concise specification describing:
