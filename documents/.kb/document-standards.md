@@ -38,6 +38,13 @@ knowledge-base documents.
 
 # Concepts
 
+## Markdown Writing
+
+[Markdown Writing](../markdown.md) provides shared source-formatting,
+linking, and validation guidance. The root harness routes to it when
+writing or modifying Markdown. Document-specific standards retain their
+own structure and conventions.
+
 ## Research Briefing
 
 The [Research Briefing Guide](../research-briefing.md) defines the standard

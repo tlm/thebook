@@ -38,6 +38,7 @@ read, not instruction precedence.
 | [Language](language.md) | Written language and spelling | Default |
 | [Judgement](judgement.md) | All agent work | Default |
 | [Go](go/AGENTS.md) | Go code, tests, APIs, design or docs | Conditional |
+| [Markdown](documents/markdown.md) | Writing or modifying Markdown | Conditional |
 
 ## Workflows
 
