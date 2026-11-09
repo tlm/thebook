@@ -56,6 +56,12 @@ description matches the current task and you judge it suitable. An index
 entry alone does not activate a workflow. Once selected, follow its
 instructions within the task's scope and the applicable harness guidance.
 
+### [New project initialisation](workflows/new-project-initialisation.md)
+
+- **Applies to:** collaboratively initialise a new project and its working
+  conventions, including optional knowledge-base setup.
+- **Read policy:** Conditional.
+
 ### [Feature specification](workflows/feature-specification.md)
 
 - **Applies to:** collaboratively explore a feature within a product and
