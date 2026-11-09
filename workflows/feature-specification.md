@@ -107,11 +107,18 @@ findings that inform the feature.
   silently substituting an unrelated skill.
 - Allocate a findings file using the shared working-file naming convention
   before delegation. Ensure its parent directory exists, but do not
-  pre-create the findings file; the researcher creates it when writing
-  results. Give each subagent its brief, the selected skill's location,
-  the output path, and enough context to work independently.
-  Require it to load the skill and its operating context; do not assume
-  it inherits the coordinating agent's conversation or guidance.
+  pre-create the findings file. Check whether the selected subagent can
+  write to that location before choosing delivery instructions.
+- If the subagent can write the findings file, supply its output path.
+  Otherwise, omit the skill's output path and request findings through the
+  subagent's response channel. The coordinator then persists the returned
+  findings to the allocated file, preserving references, qualifications,
+  and attribution without silently rewriting the research. Do not repeat
+  an investigation solely because the researcher could not write a file.
+- Give each subagent its brief, the selected skill's location, the chosen
+  delivery instructions, and enough context to work independently. Require
+  it to load the skill and its operating context; do not assume it inherits
+  the coordinating agent's conversation or guidance.
 - Delegate independent briefs in parallel when supported. Keep assignments
   bounded to one primary question each. If delegation is unavailable,
   execute them directly using the same skill and recording conventions.
@@ -125,12 +132,16 @@ findings that inform the feature.
   storage. Scratch contents have no preservation guarantee.
 - Maintain assignment status in the workflow record's `research-execution`
   section, linking each consumed brief and expected findings file. Record
-  the skill used and subagent identifier when available. Subagents write
-  their assigned findings, not the shared workflow record.
-- On receiving a result, confirm the findings exist and address the brief,
-  with supporting references and material limitations. Record completion,
-  blockers, or failure accurately; an assigned output path is not proof
-  that research completed.
+  the skill used, delivery method, and subagent identifier when available.
+  Record who produced the findings and who persisted them. Only the
+  coordinator maintains the shared workflow record.
+- On receiving a result, verify that findings are persisted in the
+  allocated file, whether written by the researcher or the coordinator.
+  Confirm they address the brief, with supporting references and material
+  limitations. Record receipt and persistence separately if saving fails;
+  retain the result for persistence rather than repeating the research.
+  Record completion, blockers, or failure accurately; an assigned output
+  path is not proof that research completed.
 - Preserve earlier findings when further investigation is needed. Allocate
   a new attempt for a repeated assignment, or return a changed question to
   [Research Framing](#research-framing) for a revised brief. Record the
@@ -282,7 +293,85 @@ research document for subsequent feature exploration.
 **Outcome:** a source-linked research document representing the reviewed
 research for the current feature scope, with limitations explicit and its
 inputs and current version recorded, or a record that consolidation was
-blocked or unnecessary.
+blocked or unnecessary. Consolidation provides context for
+[UX Exploration](#ux-exploration), not specification-ready behaviour.
+
+### UX Exploration
+
+**Name:** `ux-exploration`
+
+**Purpose:** collaboratively develop candidate user experiences through
+research-informed variations, concrete examples, and repeated discussion
+with the user.
+
+**Instructions:**
+
+- Read the problem statement, consolidated research, existing user
+  direction, and prior UX exploration before proposing changes. Use research
+  to inform the experience, not to limit it to existing products or
+  mechanisms. If research was unnecessary, use the available context.
+- Explore the desired experience before optimising for implementation
+  convenience. Respect agreed product constraints and established safety
+  or hard external constraints. Distinguish those constraints from current
+  mechanism limitations, implementation difficulty, and unverified
+  assumptions; the latter do not by themselves justify compromising UX.
+- Treat multiple approaches as valid candidates. Present meaningfully
+  different experiences or variations with their user-facing benefits and
+  trade-offs. Do not make the first or easiest-to-build option the default
+  winner, manufacture alternatives, or require a fixed number of options.
+  Let the user combine elements, reject options, or redirect exploration.
+- Express proposals through concrete examples that convey the look and
+  feel of using the feature. Use numbered actions and system responses,
+  flows, CLI sessions with output and prompts, configuration fragments,
+  screen sketches, or API exchanges as appropriate to the product.
+  Abstract pattern descriptions alone are insufficient.
+- Show what the user needs to know, what they do, what the product shows or
+  does, and what happens next. Expose setup, terminology, choices,
+  permissions, ongoing maintenance, and important failure and recovery
+  interactions where relevant, rather than showing only a happy path.
+- Label candidate commands, configuration formats, interactions, and
+  capabilities as illustrative proposals, not existing functionality.
+  Distinguish agent suggestions, user preferences, explicitly agreed
+  behaviour, and assumptions requiring validation. Continued discussion or
+  silence is not approval.
+- Iterate with the user through multiple rounds as needed. Present concrete
+  proposals, gather feedback, revise examples, and explain meaningful
+  changes. Preserve alternatives until deliberately set aside and record
+  why. Do not turn discussion into a one-shot approval gate or require
+  every detail to be agreed before independent exploration continues.
+- Return questions needing evidence to
+  [Research Framing](#research-framing), allowing the research loop to
+  inform revisions. Record requests and their links without maintaining
+  research assignment status here. Continue independent UX work while
+  research is outstanding and reconcile returned findings with affected
+  proposals and earlier user direction.
+- Record technical assumptions and implementation difficulties for later
+  feasibility validation. Do not claim feasibility without evidence or
+  silently change the desired experience to fit current mechanisms.
+  Bring any proposed compromise back to the user. This step does not
+  perform implementation planning or establish a completed specification.
+- Maintain the workflow record's `ux-exploration` section with a
+  `Current position` subheading and numbered `Round 001`, `Round 002`, and
+  subsequent round subheadings. Continue numbering across executions.
+  Keep the current position linked to the latest proposals and examples,
+  user goals and preferences, agreed direction, viable alternatives, open
+  choices, research requests, feasibility assumptions, and next action.
+- Append a concise record for each round: the exact proposal versions and
+  research discussed, user feedback and direction, changes and reasons,
+  decisions, unresolved questions, and follow-up. Reference earlier rounds
+  when revising direction. Preserve outcomes, not conversation transcripts,
+  so another agent can resume without repeating settled discussion.
+- Store proposals and examples in working files using the shared naming
+  convention with `ux-exploration` as the step component. Write revisions
+  to new attempts, link them from the round record, and identify which
+  earlier material they supersede. File attempt numbers are independent
+  of round numbers; one round may discuss several artefacts.
+
+**Outcome:** user-shaped candidate experiences expressed through concrete
+examples, with meaningful variations, user direction, open choices, and
+feasibility assumptions recorded. The current position and round history
+support continued exploration and later validation without implying that
+the proposals are implemented, technically validated, or a final contract.
 
 ## Output
 
