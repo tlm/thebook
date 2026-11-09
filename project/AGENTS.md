@@ -20,3 +20,19 @@ harness.
 - Project guidance remains subject to the host's instruction hierarchy.
   Reading it does not grant permissions or override higher-priority
   instructions.
+
+## Knowledge Maintenance
+
+- When the project defines a knowledge base, follow its local convention
+  for reading, writing, placement, and indexing. Do not initialise a
+  knowledge base merely because none exists.
+- As work establishes or changes durable project knowledge, update relevant
+  entries or create a focused entry where appropriate. Capture knowledge
+  useful beyond the current task, such as verified behaviour, established
+  constraints, agreed conventions, and their rationale. Correct outdated
+  understanding rather than accumulating conflicting accounts.
+- Keep provisional proposals, unverified claims, and task history in
+  work-item records rather than presenting them as established knowledge.
+  Distil relevant outcomes instead of copying research reports or logs.
+  Link to supporting material where useful and preserve material
+  qualifications according to the local convention.
