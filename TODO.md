@@ -36,3 +36,23 @@
 - [ ] Document Conventional Commits.
 - [ ] Expand the new-project initialisation workflow incrementally with
   version-control setup and other project working conventions.
+- [ ] Define source-control action authorisation: distinguish staging,
+  committing, pushing, pull requests, merging, and history rewriting;
+  keep permission scoped to the requested work rather than treating it
+  as standing authorisation.
+- [ ] Define working-tree safety for discarding, overwriting, cleaning,
+  resetting, and stashing changes, preserving unrelated work and requiring
+  permission for destructive operations.
+- [ ] Define signing and identity rules: respect configured identity and
+  signing, and do not bypass failures by disabling signing or substituting
+  an identity.
+- [ ] Define hook and validation handling: address relevant failures or
+  report blockers rather than bypassing hooks to make a commit succeed.
+- [ ] Define remote-operation safety: verify the intended remote and branch,
+  confirm publication scope, and require explicit permission to force-push.
+- [ ] Define branch and worktree safety when creating, switching, or
+  removing them, preserving existing work and following project conventions.
+- [ ] Define conflict-resolution guidance: understand and preserve intended
+  changes, avoid mechanical resolutions, and validate the result.
+- [ ] Define checks for accidental credentials and private data before
+  staging or publishing changes.
