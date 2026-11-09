@@ -33,6 +33,7 @@ read, not instruction precedence.
 
 | Guidance | Applies to | Read policy |
 | --- | --- | --- |
+| [Project](project/AGENTS.md) | Work within a consuming project | Default |
 | [Security](security/AGENTS.md) | All agent work | Default |
 | [Language](language.md) | Written language and spelling | Default |
 | [Judgement](judgement.md) | All agent work | Default |
