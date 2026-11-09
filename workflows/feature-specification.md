@@ -339,6 +339,28 @@ with the user.
   changes. Preserve alternatives until deliberately set aside and record
   why. Do not turn discussion into a one-shot approval gate or require
   every detail to be agreed before independent exploration continues.
+- Treat agreement on one aspect as progress within exploration, not
+  completion of the step. After incorporating and recording feedback,
+  select the next logically related unresolved topic using the current
+  position and user goals. When context is sufficient, continue in the
+  same response with a concrete proposal or meaningful variations and
+  invite feedback. Merely naming the next topic or offering to continue
+  is insufficient; do not require the user to request each transition.
+- Keep transitions focused on one useful discussion topic. Briefly connect
+  it to settled direction without reopening decisions unnecessarily or
+  presenting every remaining question. Advancing discussion does not
+  authorise choosing an option, declaring the specification complete, or
+  beginning implementation.
+- Respect requests to pause, change direction, or perform a bounded action
+  such as saving or committing work. Ask a focused question when material
+  ambiguity prevents a useful proposal. If evidence blocks one topic,
+  consider independent topics before pausing for research; do not invent
+  assumptions merely to keep the conversation moving.
+- When no useful unresolved UX topic remains, summarise the agreed
+  candidate experience, remaining assumptions, and feasibility questions,
+  and establish the next action with the user. Do not invent more topics
+  or imply that technical validation or specification completion follows
+  from local agreement.
 - Return questions needing evidence to
   [Research Framing](#research-framing), allowing the research loop to
   inform revisions. Record requests and their links without maintaining
@@ -356,6 +378,9 @@ with the user.
   Keep the current position linked to the latest proposals and examples,
   user goals and preferences, agreed direction, viable alternatives, open
   choices, research requests, feasibility assumptions, and next action.
+  Distinguish settled direction, the topic currently being explored, and
+  the next likely topic with a brief reason it follows. Update that next
+  topic as user direction or evidence changes; it is not a fixed sequence.
 - Append a concise record for each round: the exact proposal versions and
   research discussed, user feedback and direction, changes and reasons,
   decisions, unresolved questions, and follow-up. Reference earlier rounds
