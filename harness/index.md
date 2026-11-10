@@ -4,7 +4,7 @@ layout: default
 
 # Agent Harness
 
-The harness entry point is [AGENTS.md](AGENTS.md).
+The harness entry point is [HARNESS.md](HARNESS.md).
 
 If instructed to load this harness, read that document and follow its
 loading convention. Load default guidance and applicable conditional

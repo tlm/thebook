@@ -12,7 +12,7 @@ description: >-
 ## Operating Context
 
 Before executing this workflow, read and follow
-[Workflow operating context](AGENTS.md).
+[Workflow operating context](CONTEXT.md).
 
 ## Goal
 

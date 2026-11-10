@@ -33,12 +33,12 @@ read, not instruction precedence.
 
 | Guidance | Applies to | Read policy |
 | --- | --- | --- |
-| [Project](project/AGENTS.md) | Work within a consuming project | Default |
-| [Security](security/AGENTS.md) | All agent work | Default |
+| [Project](project/GUIDANCE.md) | Work within a consuming project | Default |
+| [Security](security/GUIDANCE.md) | All agent work | Default |
 | [Language](language.md) | Written language and spelling | Default |
 | [Judgement](judgement.md) | All agent work | Default |
-| [Source control](source-control/AGENTS.md) | Source-control operations and repository history | Conditional |
-| [Go](go/AGENTS.md) | Go code, tests, APIs, design or docs | Conditional |
+| [Source control](source-control/GUIDANCE.md) | Source-control operations and repository history | Conditional |
+| [Go](go/GUIDANCE.md) | Go code, tests, APIs, design or docs | Conditional |
 | [Markdown](documents/markdown.md) | Writing or modifying Markdown | Conditional |
 
 ## Workflows

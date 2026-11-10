@@ -11,7 +11,7 @@ description: >-
 ## Operating Context
 
 Before executing this skill, read and follow
-[Skill operating context](../AGENTS.md).
+[Skill operating context](../CONTEXT.md).
 
 ## Role
 

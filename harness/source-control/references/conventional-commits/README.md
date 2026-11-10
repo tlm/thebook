@@ -36,7 +36,7 @@ consuming project. Follow that project's types, scopes, and restrictions.
 
 The specification's FAQ discusses rebasing and squashing. Those suggestions
 do not authorise history rewriting or override this harness's
-[History Preservation](../../AGENTS.md#history-preservation) rules.
+[History Preservation](../../GUIDANCE.md#history-preservation) rules.
 
 Update the reference deliberately from an identified upstream revision.
 Preserve attribution and licence information, and review changes for

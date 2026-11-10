@@ -7,7 +7,7 @@ or unreadable required guidance rather than silently proceeding without it.
 
 ## Guidance
 
-- [Security](../security/AGENTS.md)
+- [Security](../security/GUIDANCE.md)
   - **Applies to:** all skill execution.
   - **Read policy:** Default.
 - [Language](../language.md)
