@@ -56,6 +56,11 @@ step with links to affected versions and assumptions. Reconsider affected
 parts rather than restarting the entire workflow, and do not treat earlier
 agreement as approval of newly introduced behaviour.
 
+[Interface Contract Definition](#interface-contract-definition) runs
+alongside these activities as public boundaries emerge. It records their
+semantics, compatibility, security expectations, and operating limits;
+it is not an exhaustive prerequisite to starting research or exploration.
+
 ### Research Framing
 
 **Name:** `research-framing`
@@ -309,6 +314,129 @@ inputs and current version recorded, or a record that consolidation was
 blocked or unnecessary. Consolidation provides context for
 [UX Exploration](#ux-exploration), not specification-ready behaviour.
 
+### Interface Contract Definition
+
+**Name:** `interface-contract-definition`
+
+**Purpose:** identify the feature's public interfaces and progressively
+establish contracts consumers can use without relying on undocumented
+implementation decisions.
+
+**Instructions:**
+
+- Read the current problem context, available UX proposals, technical
+  strategies, relevant research, and prior contract records. Begin as
+  interfaces emerge, including during research; consolidation is not a
+  prerequisite. Grow and revisit the inventory rather than demanding an
+  exhaustive list before other work can proceed.
+- Initially identify consumers, public boundaries, existing contracts, and
+  familiar product patterns. Develop semantics, examples, security
+  behaviour, failures, and limits through
+  [UX Exploration](#ux-exploration) and
+  [Technical Strategy Exploration](#technical-strategy-exploration).
+  Before specification agreement, assess coverage, consistency, and
+  consequential unknowns. Placement in this list does not require complete
+  contracts before exploration begins.
+- Identify interfaces introduced or extended by the feature, and existing
+  contracts it uses or must not break. For each, name the human or system
+  consumer, purpose, public boundary, and affected journeys. Identify
+  authoritative existing contracts and distinguish unchanged dependencies
+  from behaviour this feature needs to define or clarify.
+- Specify the boundary the consumer actually uses. A public CLI needs its
+  command contract, not its internal API, unless that API is independently
+  exposed to an identified consumer. Include configuration, protocols,
+  events, and persisted formats where they form consumer-facing contracts;
+  do not inventory every internal call or implementation detail.
+- Examine existing product-family patterns before designing extensions or
+  new interfaces. Reuse suitable terminology, syntax, configuration shapes,
+  defaults, output conventions, and interaction patterns so consumers can
+  transfer prior learning. Check behavioural compatibility separately from
+  look-and-feel consistency. Similar presentation must not conceal different
+  semantics; explain and discuss justified departures with the user.
+- Develop accepted inputs, defaults, validation, operation meanings,
+  observable effects, outputs, state transitions, and lifecycle semantics
+  as relevant. Distinguish human-readable presentation from stable
+  machine-consumable output. Address repetition, concurrency, interruption,
+  or partial completion where consequential to consumer expectations.
+- Use concrete normal, failure, and recovery examples with
+  [UX Exploration](#ux-exploration). Examples illustrate the contract but
+  do not replace explicit semantics. Identify gaps along complete journeys,
+  including interactions between interfaces, not just isolated operations.
+- Define operating limits and consequential classes of supported failure:
+  observable responses, side effects, retry safety, and recovery paths.
+  Distinguish supported guarantees, explicit non-guarantees, and unresolved
+  questions. Do not turn an unanswered question into an unsupported case
+  merely because its behaviour has not been designed.
+- Treat security as part of each applicable interface contract. Identify
+  actors, authority, affected resources, sensitive data, and relevant trust
+  boundaries. Develop legitimate-user denial, expiry, revocation, and
+  recovery behaviour alongside relevant malicious-input, unauthorised-use,
+  impersonation, and compromised-participant scenarios. Define required
+  protective behaviour and its limits without prescribing unnecessary
+  internal mechanisms or claiming protections are already established.
+- Ask [Technical Strategy Exploration](#technical-strategy-exploration)
+  to assess whether proposed guarantees and protections can be delivered.
+  Route evidence gaps through [Research Framing](#research-framing).
+  Return proposed user-facing changes to [UX Exploration](#ux-exploration)
+  for discussion. Contract definition records the resulting semantics;
+  it does not silently choose product behaviour or maintain other steps'
+  assignments and discussion histories.
+- Reconcile changed evidence, strategies, and user direction with dependent
+  contracts and examples. Identify affected versions, flag stale
+  assumptions, and record revisions and reasons. Earlier agreement does
+  not approve newly introduced behaviour. Continue unaffected work while
+  consequential questions are investigated.
+- Maintain the authoritative interface and contract inventory in the
+  work-item's `feature-specification.md` workflow record, under
+  `interface-contract-definition` / `Current position`. Update it as
+  interfaces are discovered, changed, or excluded. Do not keep it only in
+  conversation or scattered proposal files. `workflow.log` remains the
+  workflow index, not the inventory or review history.
+- For each inventory entry, record:
+  - The interface, its consumers and relevant journeys, and whether it is
+    new, extended, or an existing contract dependency.
+  - Why its contract is relevant: the consumer need, journey, compatibility
+    obligation, or security boundary that warrants inclusion.
+  - Its origin: who identified it and the user direction, exploration,
+    research finding, or existing contract that prompted it. Link the
+    relevant round, review, or artefact. Use an agent role or assignment
+    identifier when known; do not invent attribution or require model
+    metadata. State when the origin cannot be established.
+  - Scope status: proposed for inclusion, confirmed in scope, excluded, or
+    superseded, with the reason and supporting decision reference.
+  - Contract status, a link to its current definition or authoritative
+    reference, supporting UX and technical artefacts, dependencies, and
+    open questions or coverage gaps.
+- Distinguish identifying an interface from agreeing its scope or behaviour.
+  Agents may add proposed entries to expose gaps; that does not establish
+  user approval. Do not count silence as agreement. Preserve excluded or
+  superseded entries and their decision history rather than silently
+  deleting them.
+- Keep numbered `Review 001`, `Review 002`, and subsequent review subheadings
+  under `interface-contract-definition`, continuing across executions.
+  Keep rationale concise in the current inventory and detailed decision
+  history in these reviews.
+- Append concise review entries identifying exact inputs and contract
+  versions reviewed, coverage gaps, user direction, assessments, changes,
+  and cross-step follow-up. Preserve previous conclusions and identify
+  which concerns were resolved or carried forward. Keep detailed contracts
+  in linked working files using `interface-contract-definition` as the
+  filename's step component. Preserve earlier versions and identify what
+  revisions supersede; attempt numbers are independent of review numbers.
+- Assess readiness against consumer use and coverage of important journeys.
+  Unresolved questions block agreement when they affect promised behaviour,
+  safety or security, an important journey, or existing-contract
+  compatibility. Other uncertainties may remain explicit if they do not
+  undermine the offered contract. Record the reason for that assessment;
+  do not declare the whole feature ready while consequential interfaces
+  remain undefined.
+
+**Outcome:** a versioned inventory and linked public contracts covering
+consumer semantics, product consistency, compatibility, security, and
+operating limits, with proposed and agreed behaviour distinguished and
+remaining gaps explicit. These contracts support specification drafting;
+they do not imply implementation or technical verification is complete.
+
 ### UX Exploration
 
 **Name:** `ux-exploration`
@@ -342,6 +470,11 @@ with the user.
   does, and what happens next. Expose setup, terminology, choices,
   permissions, ongoing maintenance, and important failure and recovery
   interactions where relevant, rather than showing only a happy path.
+- Feed discovered public boundaries and concrete examples into
+  [Interface Contract Definition](#interface-contract-definition). Use
+  existing product patterns where appropriate, and reconcile contract
+  questions with the affected journeys rather than leaving semantics to
+  implementation.
 - Label candidate commands, configuration formats, interactions, and
   capabilities as illustrative proposals, not existing functionality.
   Distinguish agent suggestions, user preferences, explicitly agreed
@@ -479,6 +612,10 @@ obligations, and unresolved feasibility questions explicit.
   and recovery behaviour as relevant. Technical agreement does not approve
   those interactions on the user's behalf. UX Exploration owns their
   examples and user-facing direction.
+- Assess the guarantees and limits proposed in
+  [Interface Contract Definition](#interface-contract-definition). Return
+  unsupported assumptions and newly discovered public boundaries there;
+  technical choices must not silently change a consumer's contract.
 - Reconcile returned evidence and changed UX or technical choices with
   affected strategy versions and assumptions. Record which conclusions
   remain supported, change, or need reconsideration. Identify when an
@@ -516,6 +653,9 @@ A concise specification describing:
 - The proposed solution and its scope.
 - User journeys and examples showing the public-facing behaviour.
 - Requirements on users and guarantees the product provides.
+- Public interface contracts, including relevant existing-contract
+  compatibility, product-family consistency, operating limits, supported
+  failure and recovery behaviour, and security expectations.
 - Any unresolved questions that prevent agreement on that behaviour.
 
 Use only the structure and detail the feature needs. Keep supporting
