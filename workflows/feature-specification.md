@@ -18,6 +18,9 @@ Before executing this workflow, read and follow
 Develop a shared understanding of a feature within a product and capture
 how it will work for the product's users. The specification defines the
 feature's public-facing contract, not the internal implementation.
+Supporting artefacts may explore system-level technical strategies;
+code-level design, implementation planning, and production implementation
+remain outside this workflow.
 
 ## Approach
 
@@ -42,6 +45,16 @@ findings when they are available; neither requires all other work in a
 step to finish. Synthesis may request corrections or further research
 while other assignments continue. Revisit the relevant steps as questions,
 evidence, and the feature's needs change.
+
+The usual progression is research context, then
+[UX Exploration](#ux-exploration), then
+[Technical Strategy Exploration](#technical-strategy-exploration).
+These activities are revisitable, not gates requiring every detail to be
+settled. Both exploration steps can request research, and technical choices
+can introduce or change UX options. Route consequences to the responsible
+step with links to affected versions and assumptions. Reconsider affected
+parts rather than restarting the entire workflow, and do not treat earlier
+agreement as approval of newly introduced behaviour.
 
 ### Research Framing
 
@@ -367,11 +380,15 @@ with the user.
   research assignment status here. Continue independent UX work while
   research is outstanding and reconcile returned findings with affected
   proposals and earlier user direction.
-- Record technical assumptions and implementation difficulties for later
-  feasibility validation. Do not claim feasibility without evidence or
-  silently change the desired experience to fit current mechanisms.
-  Bring any proposed compromise back to the user. This step does not
-  perform implementation planning or establish a completed specification.
+- Bring technical assumptions and implementation difficulties to
+  [Technical Strategy Exploration](#technical-strategy-exploration).
+  Do not claim feasibility without evidence or silently change the desired
+  experience to fit current mechanisms. Review technical consequences with
+  the user here, including newly enabled interactions as well as proposed
+  compromises. Reconcile them with affected UX versions and earlier user
+  direction; mark proposals needing reconsideration until reviewed.
+  This step does not perform implementation planning or establish a
+  completed specification.
 - Maintain the workflow record's `ux-exploration` section with a
   `Current position` subheading and numbered `Round 001`, `Round 002`, and
   subsequent round subheadings. Continue numbering across executions.
@@ -398,6 +415,99 @@ feasibility assumptions recorded. The current position and round history
 support continued exploration and later validation without implying that
 the proposals are implemented, technically validated, or a final contract.
 
+### Technical Strategy Exploration
+
+**Name:** `technical-strategy-exploration`
+
+**Purpose:** explore and compare system-level strategies for delivering
+candidate user experiences, making their mechanisms, trade-offs, security
+obligations, and unresolved feasibility questions explicit.
+
+**Instructions:**
+
+- Read current UX proposals, user direction, reviewed research, and prior
+  strategy rounds. Identify the exact versions and assumptions being
+  considered. Start when enough UX context exists for useful exploration;
+  do not require every interaction to be settled first.
+- Develop meaningfully different strategies where useful, without requiring
+  a fixed number or manufacturing alternatives. Compare them against the
+  same UX goals, scenarios, and constraints. Explain which interactions
+  each supports, constrains, or newly enables.
+- Describe how important operations work end to end using system-level
+  diagrams, numbered sequences, or concise comparisons. Identify the
+  components and external systems involved, their responsibilities, and
+  existing mechanisms versus proposed additions. Do not describe an
+  unimplemented mechanism as an available capability.
+- Identify data ownership, trust boundaries, identity, permissions,
+  lifecycle, compatibility, and operational concerns where relevant.
+  Explain failure, recovery, and fallback behaviour. State the guarantees
+  and engineering obligations a strategy would require; naming isolation
+  or authorisation does not establish that those problems are solved.
+- Keep exploration at the system-strategy level. Do not map changes to
+  functions, packages, or files, produce implementation task breakdowns,
+  or write production code. Targeted source inspection may answer a
+  decisive capability question, but must not become a broad codebase dive.
+  Establish scope and authorisation before executing probes or using
+  infrastructure; merely proposing a strategy does not authorise either.
+- Distinguish established evidence, candidate designs, assumptions, and
+  unresolved risks. Match feasibility claims to what the evidence actually
+  supports. Do not present source inspection as runtime verification or
+  claim that an unresolved security obligation has been satisfied.
+- Explore credible ways to preserve the desired experience before proposing
+  compromises. Distinguish current implementation difficulty from genuine
+  constraints and unknowns. Discuss benefits, costs, and limitations with
+  the user rather than selecting the easiest implementation by default.
+- Iterate through concrete strategies and variations with the user. Keep
+  agent proposals, user preferences, and explicitly agreed direction
+  distinct. Agreement on one aspect is not approval of all its consequences
+  or permission to implement. Preserve alternatives until deliberately set
+  aside and record why.
+- After incorporating and recording feedback, continue with the next
+  related unresolved topic when context permits, presenting a concrete
+  strategy or meaningful variations in the same response. Do not merely
+  offer to continue. Keep transitions focused, respect pauses and bounded
+  requests, and ask when material ambiguity prevents useful exploration.
+  When no useful topic remains, summarise the current strategies and
+  outstanding obligations and establish the next action with the user.
+- Send evidence gaps to [Research Framing](#research-framing), identifying
+  the bounded question, affected strategy, and why the answer matters.
+  Use the existing research loop rather than an untracked parallel
+  investigation. Link requests and resulting work; research steps retain
+  ownership of briefs, assignments, and evidence review.
+- Return user-facing consequences to [UX Exploration](#ux-exploration),
+  including new opportunities, approval flows, lifecycle interactions,
+  and recovery behaviour as relevant. Technical agreement does not approve
+  those interactions on the user's behalf. UX Exploration owns their
+  examples and user-facing direction.
+- Reconcile returned evidence and changed UX or technical choices with
+  affected strategy versions and assumptions. Record which conclusions
+  remain supported, change, or need reconsideration. Identify when an
+  assessment applies to an older UX version rather than silently treating
+  it as current. Continue unaffected work while follow-up is outstanding.
+- Maintain the workflow record's `technical-strategy-exploration` section
+  with a `Current position` subheading and numbered `Round 001`,
+  `Round 002`, and subsequent round subheadings. Continue numbering across
+  executions. Link the current UX versions, research, and strategy files;
+  distinguish settled direction, viable alternatives, open choices,
+  technical and security obligations, research requests, affected UX
+  proposals, the current topic, next likely topic, and next action.
+- Append concise round entries recording exact inputs and strategy versions
+  discussed, user feedback and direction, assessments, changes and reasons,
+  cross-step consequences, and follow-up. Reference earlier rounds when
+  revising conclusions. Do not maintain other steps' state here or copy
+  conversation transcripts into the record.
+- Store strategy artefacts using the shared working-file naming convention
+  with `technical-strategy-exploration` as the step component. Preserve
+  earlier versions, link revisions from their round entries, and identify
+  what they supersede. Attempt numbers are independent of round numbers.
+
+**Outcome:** one or more user-discussed, evidence-informed technical
+strategies, linked to the candidate UX, with trade-offs, obligations,
+assumptions, and outstanding questions explicit. The record supports
+continued research and UX refinement; it is not a detailed implementation
+plan or a declaration that unresolved feasibility or security concerns
+have been resolved.
+
 ## Output
 
 A concise specification describing:
@@ -408,9 +518,11 @@ A concise specification describing:
 - Requirements on users and guarantees the product provides.
 - Any unresolved questions that prevent agreement on that behaviour.
 
-Use only the structure and detail the feature needs. Do not include internal
-architecture, implementation plans, or code-level design. User-visible
-technical details belong here only when they are part of the contract.
+Use only the structure and detail the feature needs. Keep supporting
+system-level technical strategies in separate, linked artefacts rather
+than embedding internal architecture in the specification. Implementation
+plans and code-level design remain outside this workflow. User-visible
+technical details belong in the specification when part of the contract.
 
 Review the specification with the user. Distinguish agreed behaviour from
 open questions, and do not proceed to implementation as part of this
