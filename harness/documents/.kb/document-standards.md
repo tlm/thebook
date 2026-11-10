@@ -1,7 +1,8 @@
 # Preface
 
-This document describes the purpose of `documents/` and how to maintain
-its reusable document standards.
+This document describes the purpose of `harness/documents/` and how to
+maintain its reusable document standards. Paths such as `documents/` below
+are relative to the harness source root.
 
 IMPORTANT: Read the `.kb/agents.md` file.
 
