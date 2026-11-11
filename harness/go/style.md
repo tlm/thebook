@@ -31,6 +31,10 @@ These rules apply to writing Go code.
 - Avoid `New*` functions that return errors; use names like `Make*` or
   `Construct*` when construction can fail.
 - Prefer package-private helpers unless API exposure is necessary.
+- When passing a function literal as an argument, prefer assigning it to a
+  descriptively named local variable immediately before the call. Keep the
+  callback's behaviour readable on its own and the call focused on its
+  arguments. Avoid inline function literals inside argument lists.
 - Prefer passing and returning small, simple structs by value. Do not use
   pointers by default or solely to avoid copying.
 - Use a pointer when the function must modify the caller's struct, shared
@@ -209,26 +213,22 @@ return fmt.Errorf(
 
 #### Function Literals as Arguments
 
-`http.HandleFunc` registers the supplied function as a request handler.
-The function literal is one argument even though its body spans lines.
-Its short signature remains compact; the trailing comma follows its
-closing brace, and the call's closing parenthesis is on a separate line.
+Define the callback separately so its behaviour is easy to read, then pass
+it to the call. `http.HandleFunc` registers it as a request handler.
 
 ```go
-http.HandleFunc(
-    "/health",
-    func(w http.ResponseWriter, r *http.Request) {
-        w.WriteHeader(http.StatusNoContent)
-    },
-)
+handleHealth := func(w http.ResponseWriter, r *http.Request) {
+    w.WriteHeader(http.StatusNoContent)
+}
+http.HandleFunc("/health", handleHealth)
 ```
 
 #### Wrapped Function-Literal Signatures
 
 Apply the parameter-layout rule to anonymous functions too. Here,
 `processRequest` represents existing application logic; `handleRequest`
-is a function value that delegates to it. The same signature layout
-applies when passing the function literal as an argument.
+is a function value that delegates to it. Apply the signature layout to
+that separately declared callback, then pass its variable to the caller.
 
 ```go
 handleRequest := func(
@@ -244,14 +244,13 @@ handleRequest := func(
 
 Unlike `http.HandleFunc`, `http.HandlerFunc` is a named function type.
 This expression converts a function value into that type, which implements
-`http.Handler`. It does not register or execute the handler. The conversion
-uses the same multiline layout as a call with a function-literal argument.
+`http.Handler`. It does not register or execute the handler. Define the
+function value separately before converting it.
 
 ```go
-handler := http.HandlerFunc(
-    func(w http.ResponseWriter, r *http.Request) {
-        w.WriteHeader(http.StatusNoContent)
-    },
-)
+handleHealth := func(w http.ResponseWriter, r *http.Request) {
+    w.WriteHeader(http.StatusNoContent)
+}
+handler := http.HandlerFunc(handleHealth)
 ```
 
