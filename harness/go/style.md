@@ -79,6 +79,26 @@ These rules apply to writing Go code.
   pattern obvious, avoids stray zero values if the loop exits early, and
   removes the need for a manual index variable.
 
+## Error Inspection
+
+- Use `errors.Is` to match sentinel errors. Use `errors.As` or
+  `errors.AsType` to match and extract typed errors. This applies to
+  production code and tests. Use APIs available in the project's minimum
+  supported Go version.
+- Do not substitute error-message comparisons, reflection-based type
+  checks, or direct type assertions for these error-matching operations.
+- Error text MUST NOT be used to identify or classify failures, except
+  when the text is an explicit contract or when an external dependency
+  provides no usable structured way to distinguish the required failure.
+- Before relying on dependency error text, establish that no suitable
+  sentinel, error type, or structured inspection API is available.
+  Confine unavoidable text inspection to the integration boundary,
+  document the dependency limitation, and test the recognised messages
+  and handling of unrecognised messages.
+- For errors owned by the project, expose meaningful failure distinctions
+  through sentinel errors or well-defined error types rather than
+  requiring callers to parse messages.
+
 ## Error Messages
 
 - When adding operation context to an error, begin with a lowercase

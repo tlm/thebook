@@ -127,6 +127,28 @@ These rules apply when writing or modifying Go tests.
   proposed approach in plain language, then ask a focused question. Keep
   the explanation concise unless more detail is requested.
 
+## Error Assertions
+
+- Follow the [error inspection guidance](style.md#error-inspection) in
+  tests. Use `errors.Is`, `errors.As`, and `errors.AsType` for the matching
+  operations they define.
+- Tests MUST NOT hard-code error text as an expected result unless the
+  wording is an explicit contract, a user-facing element being tested,
+  or part of the narrowly permitted dependency integration described in
+  that guidance. Testing user-facing wording does not permit using it as
+  a substitute for error classification.
+- For typed errors, assert successful extraction before inspecting the
+  result. Check the structured details that establish the expected
+  failure, rather than stopping at the error type when the test requires
+  a more specific distinction.
+- When removing error-text assertions, preserve the required failure
+  distinctions through error identity, types, and relevant structured
+  details. Do not weaken the test to accept any error merely because
+  message wording changed.
+- If project-owned errors cannot express a required failure distinction
+  without parsing text, address the error contract rather than adding
+  message-dependent assertions.
+
 ## Testing with `github.com/juju/tc`
 
 The rules in this subsection apply only when the `github.com/juju/tc`
