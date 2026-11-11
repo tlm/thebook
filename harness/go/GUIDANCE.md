@@ -27,6 +27,7 @@ specific conflict briefly and ask for guidance.
 | [Style](style.md) | Go code style | Conditional |
 | [Testing](testing.md) | Go tests or behaviour changes | Conditional |
 | [Documentation](documentation.md) | Go docs, comments or APIs | Conditional |
+| [Constant sentinel errors](patterns/constant-errors.md) | Defining or changing package-level sentinel errors and error contracts | Conditional |
 
 ## General
 

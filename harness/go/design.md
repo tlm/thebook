@@ -67,6 +67,14 @@ context; it is not a mandate to redesign unrelated code.
   component wiring. They complement, rather than replace, independently
   testable package contracts.
 
+## Error Contracts
+
+For fixed, project-owned failure conditions, follow the
+[constant sentinel error pattern](patterns/constant-errors.md). It covers
+immutable declarations, ownership, wrapping, matching, and value identity.
+Use structured error types when callers need runtime details rather than
+only a fixed failure category.
+
 ## Parameter and Return Types
 
 - Accept interfaces when a function needs a capability rather than a
