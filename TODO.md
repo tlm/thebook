@@ -36,6 +36,9 @@
 - [ ] Document Conventional Commits.
 - [ ] Expand the new-project initialisation workflow incrementally with
   version-control setup and other project working conventions.
+- [ ] Add a skill for setting up the Canonical knowledge-base convention in
+  existing repositories, preserving existing guidance and documentation
+  and agreeing any migration scope with the user.
 - [ ] Define source-control action authorisation: distinguish staging,
   committing, pushing, pull requests, merging, and history rewriting;
   keep permission scoped to the requested work rather than treating it
