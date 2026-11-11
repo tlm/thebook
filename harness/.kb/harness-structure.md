@@ -14,9 +14,16 @@ Use `AGENTS.md` files for instructions to agents developing this repository.
 Use `.kb/` directories for maintained contributor knowledge. Neither is a
 consumer harness artefact.
 
-Keep contributor guidance out of the consumer loading graph. Contributor
-instructions may explicitly reuse relevant consumer guidance, but must not
-activate the full harness merely to edit it or create loading cycles.
+Keep contributor guidance out of the consumer loading graph. Contributors
+explicitly load the local `harness/HARNESS.md` and follow its default and
+applicable conditional guidance. Do not maintain a separate contributor
+list of consumer rules that can drift from the harness's own routing.
+
+This dependency is one-way: consumer loading remains independent of this
+repository's contributor instructions. If project discovery points back
+to contributor guidance already loaded, reuse that context rather than
+repeatedly traversing the cycle. Loading the harness does not itself
+select a workflow or authorise additional actions.
 
 ## §2 - Consumer Entry Points
 
