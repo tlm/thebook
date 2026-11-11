@@ -84,6 +84,8 @@ generates its root discovery page and content version. See
 [Harness publication](../../.kb/harness-publication.md) for the exclusion
 policy, hash contract, local commands, and validation limits.
 
-A Pages deployment action is not configured yet. Current branch-based
-publication does not run the publisher or enforce its exclusions. Source
-moves and renamed entry points require deployment configuration updates.
+The workflow `.github/workflows/pages.yml` tests and assembles the harness,
+then deploys the generated site to Pages from `main`. It requires GitHub
+Actions to be selected as the repository's Pages source; branch publication
+does not run the publisher or enforce its exclusions. Repository settings
+and actual deployment success must be verified separately.

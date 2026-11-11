@@ -101,7 +101,28 @@ but this publisher does not provide immutable versioned URLs.
 
 ## Deployment Boundary
 
-The program only assembles a static site. A GitHub Pages action must upload
-and deploy that directory separately, without Jekyll rendering. No deploy
-action is configured yet. Select GitHub Actions in Pages settings when
-that integration is introduced; branch publication does not run this tool.
+The program only assembles a static site.
+[Pages deployment](../.github/workflows/pages.yml) runs on pushes to `main`
+and manual dispatch. The build job selects Go from `go.mod`, runs tests
+and vet, assembles `_site/`, and uploads only that directory. No Jekyll
+rendering or repository-root upload is involved.
+
+The upload includes hidden files so the generated `.nojekyll` marker is
+retained; source hidden files were already excluded by the publisher.
+The build job has read-only repository access. Only the deployment job
+receives Pages write and OIDC permissions, uses the `github-pages`
+environment, and deploys only `main`. A manual run on another branch can
+build but cannot deploy. Pages runs are serialised without cancelling an
+in-progress deployment.
+
+Official actions are pinned to commit hashes with release comments. When
+updating them, verify their inputs and output contracts, particularly
+artifact handling and hidden-file defaults.
+
+In repository Settings, select Pages, then GitHub Actions as the build and
+deployment source. Push the workflow to `main` or manually run it there.
+The workflow uses the repository's `GITHUB_TOKEN` and OIDC; no personal
+access token or deployment secret is required. Environment protection or
+organisation policies may require approval. Successful local validation
+does not establish that a GitHub deployment has run or that Pages settings
+have been changed.
