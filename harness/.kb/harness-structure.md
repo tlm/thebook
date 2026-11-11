@@ -56,10 +56,12 @@ project instructions, not to this repository's contributor entry points.
 
 ## §4 - Publication Boundary
 
-Publication must select consumer artefacts and exclude contributor
-`AGENTS.md` files and `.kb/` directories. Validate that published guidance
-links do not depend on excluded material. Do not assume that every file
-under `harness/` is publishable.
+Publication must exclude contributor `AGENTS.md` files and every source
+file or directory whose name starts with `.`, including `.kb/`.
+The publisher uses a hardcoded exclusion policy; all other regular source
+files are published by default. Update the policy and tests before adding
+other non-consumer material under `harness/`. Validate that published
+guidance links do not depend on excluded material.
 
 
 # Concepts
@@ -77,7 +79,11 @@ not maintain a separate convention copy.
 
 ## Publication Status
 
-A selective publisher and its deployment action have not yet been
-implemented. The publication boundary above is a requirement for that
-work, not a claim that current Pages deployment enforces it. Source moves
-and renamed entry points require publication configuration to be updated.
+The Go command `cmd/publish-harness` assembles the consumer site and
+generates its root discovery page and content version. See
+[Harness publication](../../.kb/harness-publication.md) for the exclusion
+policy, hash contract, local commands, and validation limits.
+
+A Pages deployment action is not configured yet. Current branch-based
+publication does not run the publisher or enforce its exclusions. Source
+moves and renamed entry points require deployment configuration updates.

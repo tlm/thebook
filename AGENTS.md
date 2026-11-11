@@ -4,6 +4,8 @@ IMPORTANT: Read the `.kb/agents.md` file.
 
 - [.kb/agents.md](.kb/agents.md) - Structure and rules of the knowledge base.
   You MUST read this file.
+- [.kb/harness-publication.md](.kb/harness-publication.md) - Publication
+  exclusions, build commands, link validation, and content versioning.
 - [harness/.kb/harness-structure.md](harness/.kb/harness-structure.md) -
   Consumer and contributor boundaries, entry-point roles, and publication.
 - [harness/documents/.kb/document-standards.md](harness/documents/.kb/document-standards.md) -
