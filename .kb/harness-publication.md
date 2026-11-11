@@ -18,8 +18,9 @@ such as `.kb/`, `.git/`, and `.github/`, as well as dot-prefixed files.
 
 Before adding non-hidden material under `harness/` that must not be
 published, update the hardcoded policy and its tests. Placement inside the
-source tree is otherwise a decision to publish. Do not rely on Git ignore rules or a file
-being untracked to keep it out of publication. Never put secrets there.
+source tree is otherwise a decision to publish. Do not rely on Git ignore
+rules or a file being untracked to keep it out of publication. Never put
+secrets there.
 
 The generated root paths `index.html` and `version.txt` are reserved;
 source collisions cause build failure. Source `.nojekyll` is excluded like
