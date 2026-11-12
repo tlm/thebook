@@ -193,9 +193,10 @@ integrate usable findings, and identify necessary follow-up.
 
 **Instructions:**
 
-- Read the current position and prior review entries before
-  starting. Identify new or revised briefs and findings, outstanding
-  concerns, and earlier conclusions affected by the available material.
+- Start with the current position and linked current briefs and findings.
+  Read prior review entries when needed to resolve a decision, conflict,
+  changed assumption, or provenance question. Identify new or revised
+  inputs, outstanding concerns, and affected earlier conclusions.
 - Review findings against their briefs and the feature decisions they are
   intended to inform. Assess whether the question was answered, evidence
   supports the claims, and scope and depth are sufficient for that use.
@@ -447,10 +448,12 @@ with the user.
 
 **Instructions:**
 
-- Read the problem statement, consolidated research, existing user
-  direction, and prior UX exploration before proposing changes. Use research
-  to inform the experience, not to limit it to existing products or
-  mechanisms. If research was unnecessary, use the available context.
+- Start with the current UX position and linked current proposals, problem
+  statement, user direction, and consolidated research. Read prior rounds
+  when needed to resolve a decision, conflict, changed assumption, or
+  provenance question. Use research to inform the experience, not to limit
+  it to existing products or mechanisms. If research was unnecessary, use
+  the available context.
 - Explore the desired experience before optimising for implementation
   convenience. Respect agreed product constraints and established safety
   or hard external constraints. Distinguish those constraints from current
@@ -558,8 +561,10 @@ obligations, and unresolved feasibility questions explicit.
 
 **Instructions:**
 
-- Read current UX proposals, user direction, reviewed research, and prior
-  strategy rounds. Identify the exact versions and assumptions being
+- Start with the current strategy position and linked current strategies,
+  UX proposals, user direction, and reviewed research. Read prior rounds
+  when needed to resolve a decision, conflict, changed assumption, or
+  provenance question. Identify the exact versions and assumptions being
   considered. Start when enough UX context exists for useful exploration;
   do not require every interaction to be settled first.
 - Develop meaningfully different strategies where useful, without requiring

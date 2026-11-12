@@ -135,8 +135,12 @@ existing files and assignments recorded in the workflow record. Use the
 next unused attempt number for a repeated assignment; do not overwrite
 earlier findings.
 
-Each subagent writes to its assigned working file. The coordinating agent
-maintains the shared workflow record and links to the working files.
+Before delegation, establish whether the subagent can write its assigned
+working file. If it can, assign that destination; otherwise, arrange for
+it to return the result and for the coordinating agent to persist it to
+the assigned file. The coordinating agent verifies that results are
+persisted, maintains the shared workflow record, and links to the working
+files.
 
 ## Recording Progress
 
