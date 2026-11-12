@@ -10,6 +10,9 @@ IMPORTANT: Read the `.kb/agents.md` file.
   Consumer and contributor boundaries, entry-point roles, and publication.
 - [harness/documents/.kb/document-standards.md](harness/documents/.kb/document-standards.md) -
   Purpose, responsibilities, and maintenance of reusable document standards.
+- [harness/workflows/.kb/workflow-design.md](harness/workflows/.kb/workflow-design.md) -
+  Workflow-authoring properties: resumption, context loading, ownership,
+  reconciliation, delegation, and proportionate validation.
 
 ## Contributor Guidance
 
