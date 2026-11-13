@@ -1,9 +1,8 @@
 ---
 name: feature-specification
 description: >-
-  Collaboratively explore a feature within a product and define its
-  user-facing behaviour and contract. Use when developing a feature idea
-  into a lightweight specification, before technical implementation planning.
+  Developing a feature idea into a lightweight specification of its
+  user-facing behaviour and contract, before implementation planning.
 ---
 
 # Feature Specification

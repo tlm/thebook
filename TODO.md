@@ -59,3 +59,6 @@
   changes, avoid mechanical resolutions, and validate the result.
 - [ ] Define checks for accidental credentials and private data before
   staging or publishing changes.
+- [ ] Add a publisher test that fails when a `HARNESS.md` workflow index
+  entry and its workflow's frontmatter `description` differ, once more
+  entries need keeping in sync.

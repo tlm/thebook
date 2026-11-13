@@ -1,10 +1,8 @@
 ---
 name: new-project-initialisation
 description: >-
-  Collaboratively establish a new project and its working conventions.
-  Use when the user asks to initialise a project, not merely when project
-  guidance or a knowledge base is absent. Includes optional Canonical
-  knowledge-base setup; does not provide a complete project scaffold.
+  Initialising a new project and its working conventions, only when the
+  user asks for initialisation.
 ---
 
 # New Project Initialisation

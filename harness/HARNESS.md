@@ -52,19 +52,20 @@ goal.
 Each workflow is a Markdown file in `workflows/`, with YAML frontmatter
 containing a `name` and `description`, followed by its instructions.
 
-Read a workflow only when the user asks to execute it, or when its
-description matches the current task and you judge it suitable. An index
-entry alone does not activate a workflow. Once selected, follow its
+Read a workflow only when the user asks to execute it, or when its index
+entry matches the current task and you judge it suitable. An index entry
+alone does not activate a workflow. Once selected, follow its
 instructions within the task's scope and the applicable harness guidance.
 
 ### [New project initialisation](workflows/new-project-initialisation.md)
 
-- **Applies to:** collaboratively initialise a new project and its working
-  conventions, including optional knowledge-base setup.
+- **Applies to:** initialising a new project and its working conventions,
+  only when the user asks for initialisation.
 - **Read policy:** Conditional.
 
 ### [Feature specification](workflows/feature-specification.md)
 
-- **Applies to:** collaboratively explore a feature within a product and
-  define its user-facing behaviour and contract.
+- **Applies to:** developing a feature idea into a lightweight
+  specification of its user-facing behaviour and contract, before
+  implementation planning.
 - **Read policy:** Conditional.
