@@ -61,6 +61,12 @@ alongside these activities as public boundaries emerge. It records their
 semantics, compatibility, security expectations, and operating limits;
 it is not an exhaustive prerequisite to starting research or exploration.
 
+[Specification Drafting](#specification-drafting) composes the
+specification document from the current agreed direction of the other
+steps. It may begin with an early draft once a candidate direction exists
+and is revisited as that direction changes. Drafting records behaviour;
+it does not decide it.
+
 ### Research Framing
 
 **Name:** `research-framing`
@@ -650,9 +656,99 @@ continued research and UX refinement; it is not a detailed implementation
 plan or a declaration that unresolved feasibility or security concerns
 have been resolved.
 
+### Specification Drafting
+
+**Name:** `specification-drafting`
+
+**Purpose:** compose the agreed feature behaviour and contracts into a
+standalone specification document, and refine it with the user until they
+are ready to export it.
+
+**Instructions:**
+
+- Begin once the problem and a candidate direction exist. An early draft
+  can expose gaps and structure discussion; it does not require every
+  step to be settled. Readiness for approval is assessed separately.
+- Start with the drafting section's current position and current draft.
+  Then read the current positions of
+  [UX Exploration](#ux-exploration),
+  [Interface Contract Definition](#interface-contract-definition), and
+  [Technical Strategy Exploration](#technical-strategy-exploration), and
+  any current research consolidation. Load linked artefacts and earlier
+  rounds only for the content being drafted or a question being resolved.
+- Read and follow the [Specification Guide](../documents/specification.md).
+  Use its format, structure, editorial standard, and completion review.
+- If the user supplies their own specification template or an earlier
+  specification as an example, record its location and follow its
+  structure, metadata, and vocabulary. Read large examples selectively;
+  skip embedded images and read only the sections needed for structure
+  and tone.
+- Ask the user for metadata the guide requires, such as index, type,
+  authors, and reviewers. Mark unknown values `TBD`; do not invent them.
+- Compose the body from agreed direction. Draw examples from current UX
+  proposals and semantics from current contracts. Include system-level
+  mechanisms only where consumers observe or depend on them; keep other
+  strategy detail in its own artefacts.
+- When the user has not settled between viable alternatives, present them
+  in the draft as options, following the guide, so the draft can support
+  discussion. Draw options from the alternatives preserved by the
+  exploration steps; do not manufacture options to fill the draft. An
+  early draft may contain several sets of options.
+- Do not introduce or settle behaviour during composition. Raise other
+  unagreed proposals and unresolved consequential questions as open issues
+  in the draft. Return gaps, conflicts, and newly proposed behaviour to the
+  responsible step, linking the affected draft version. That step owns
+  the discussion and resulting direction, including choices between
+  options.
+- Write each draft as a working file using the shared naming convention,
+  with `specification-drafting` as the step component, such as
+  `specification-drafting-team-invitations-001.md`. Write revisions to new
+  attempts, preserving earlier drafts, and identify what each supersedes.
+- Present drafts to the user for review. Incorporate their feedback and
+  explain material changes. Treat feedback that changes behaviour as user
+  direction for the responsible step, record it there, and reflect the
+  outcome in the next draft.
+- When upstream direction, contracts, or strategies change, identify which
+  draft sections depend on them and mark the current draft as needing
+  revision until reconciled. Earlier review of a draft does not approve
+  behaviour introduced later.
+- Consider delegating composition of a draft when its inputs can be
+  bounded. Supply the guide, the current inputs to use, any user template,
+  the allocated output path or return instructions, and the instruction
+  not to introduce behaviour. Review the result against the guide's
+  completion review before presenting it.
+- Maintain the workflow record's `specification-drafting` section with a
+  `Current position` subheading and numbered `Review 001`, `Review 002`,
+  and subsequent review subheadings, continuing across executions.
+- Keep the current position to: the current draft and its document status,
+  any user template or example used, the upstream positions, rounds,
+  reviews, and artefact versions it reflects, options presented and their
+  open issues, other open issues, sections needing revision, and the next
+  action.
+- Append a concise review entry for each user review of a draft: the draft
+  version reviewed, feedback and direction, options chosen or set aside,
+  changes made or routed to other steps with links, open issues resolved
+  or carried forward, and any status change the user made. Preserve
+  outcomes, not transcripts.
+- Only the user changes the document status or declares the specification
+  ready. Before they do, check that no open issue affects promised
+  behaviour, safety or security, an important journey, or existing-contract
+  compatibility.
+- The Markdown draft is the work product. Do not publish or upload it to
+  external document systems unless the user explicitly asks and the action
+  is authorised. Do not proceed to implementation.
+
+**Outcome:** a versioned specification draft following the guide, linked
+to the upstream direction it reflects, with unsettled approaches presented
+as options, open issues explicit, and the user's review status recorded.
+Agreement on a draft does not authorise implementation or imply technical
+verification is complete.
+
 ## Output
 
-A concise specification describing:
+A concise specification document produced by
+[Specification Drafting](#specification-drafting) following the
+[Specification Guide](../documents/specification.md), describing:
 
 - The problem and intended users.
 - The proposed solution and its scope.
@@ -664,11 +760,11 @@ A concise specification describing:
 - Any unresolved questions that prevent agreement on that behaviour.
 
 Use only the structure and detail the feature needs. Keep supporting
-system-level technical strategies in separate, linked artefacts rather
-than embedding internal architecture in the specification. Implementation
+system-level technical strategies in separate artefacts rather than
+embedding internal architecture in the specification. Implementation
 plans and code-level design remain outside this workflow. User-visible
 technical details belong in the specification when part of the contract.
 
-Review the specification with the user. Distinguish agreed behaviour from
-open questions, and do not proceed to implementation as part of this
-workflow.
+The specification is written in Markdown for the user to export to their
+own document system once satisfied. Distinguish agreed behaviour from open
+questions, and do not proceed to implementation as part of this workflow.
