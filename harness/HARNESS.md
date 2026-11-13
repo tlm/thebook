@@ -37,8 +37,8 @@ read, not instruction precedence.
 | [Security](security/GUIDANCE.md) | All agent work | Default |
 | [Language](language.md) | Written language, spelling, and style | Default |
 | [Judgement](judgement.md) | All agent work | Default |
-| [Source control](source-control/GUIDANCE.md) | Source-control operations and repository history | Conditional |
-| [Go](go/GUIDANCE.md) | Go code, tests, APIs, design or docs | Conditional |
+| [Source control](source-control/GUIDANCE.md) | Staging, committing, amending or rebasing, or handling unreachable commits | Conditional |
+| [Go](go/GUIDANCE.md) | Writing, changing, or reviewing Go code, tests, or docs | Conditional |
 | [Markdown](documents/markdown.md) | Writing or modifying Markdown | Conditional |
 
 ## Workflows

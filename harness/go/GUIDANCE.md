@@ -1,7 +1,7 @@
 # Go
 
-This entry applies to Go code, tests, APIs, design and documentation.
-Use the harness routing convention for the guidance below.
+This entry applies to writing, changing, or reviewing Go code, tests, or
+docs. Use the harness routing convention for the guidance below.
 
 ## Project-Specific Instructions
 
@@ -23,10 +23,10 @@ specific conflict briefly and ask for guidance.
 
 | Guidance | Applies to | Read policy |
 | --- | --- | --- |
-| [Design](design.md) | Go design, APIs or architecture | Conditional |
-| [Style](style.md) | Go code style | Conditional |
+| [Design](design.md) | Adding or changing Go packages, types, interfaces, function signatures, or error contracts | Conditional |
+| [Style](style.md) | Writing or changing Go code | Conditional |
 | [Testing](testing.md) | Go tests or behaviour changes | Conditional |
-| [Documentation](documentation.md) | Go docs, comments or APIs | Conditional |
+| [Documentation](documentation.md) | Writing Go doc comments, or adding or changing exported APIs | Conditional |
 | [Constant sentinel errors](patterns/constant-errors.md) | Defining or changing package-level sentinel errors and error contracts | Conditional |
 
 ## General
