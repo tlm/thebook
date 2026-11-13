@@ -11,7 +11,7 @@ or unreadable required guidance rather than silently proceeding without it.
   - **Applies to:** all skill execution.
   - **Read policy:** Default.
 - [Language](../language.md)
-  - **Applies to:** written language and spelling.
+  - **Applies to:** written language, spelling, and style.
   - **Read policy:** Default.
 - [Judgement](../judgement.md)
   - **Applies to:** all skill execution.

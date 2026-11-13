@@ -35,7 +35,7 @@ read, not instruction precedence.
 | --- | --- | --- |
 | [Project](project/GUIDANCE.md) | Work within a consuming project | Default |
 | [Security](security/GUIDANCE.md) | All agent work | Default |
-| [Language](language.md) | Written language and spelling | Default |
+| [Language](language.md) | Written language, spelling, and style | Default |
 | [Judgement](judgement.md) | All agent work | Default |
 | [Source control](source-control/GUIDANCE.md) | Source-control operations and repository history | Conditional |
 | [Go](go/GUIDANCE.md) | Go code, tests, APIs, design or docs | Conditional |
