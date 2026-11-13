@@ -59,3 +59,24 @@ standards, traceability, and completion review. The
 [Research Consolidation step](../../workflows/feature-specification.md#research-consolidation)
 in the feature-specification workflow invokes it and manages the produced
 document's lifecycle.
+
+## Specification
+
+The [Specification Guide](../specification.md) defines the structure,
+export-friendly Markdown format, editorial standard, and completion review
+for feature specifications. Its structure follows a common specification
+template: metadata table, abstract, rationale, specification, further
+information, and changelog. Drafts are written in Markdown for users to
+export to their own document system, so the guide favours constructs that
+convert cleanly over exact source formatting.
+
+A draft may present unsettled approaches as labelled options, each tied to
+an open issue, so it can serve as a discussion piece before approval.
+Approval still requires every open issue, including each option choice,
+to be resolved.
+
+Keep the guide free of organisation-specific identifiers, internal links,
+and people. User-supplied templates and examples take precedence for a
+particular specification. The
+[Specification Drafting step](../../workflows/feature-specification.md#specification-drafting)
+invokes the guide and manages draft versions and review status.
