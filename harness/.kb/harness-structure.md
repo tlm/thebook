@@ -40,10 +40,16 @@ Keep bounded skill instructions in `<skill-name>/SKILL.md`, with the
 required discovery frontmatter. Keep individual workflow definitions in
 named Markdown files with their own discovery frontmatter.
 
-The `HARNESS.md` workflow index entry is the pointer agents read when
-selecting a workflow, so it must carry the workflow's triggers. Keep the
-workflow's frontmatter `description` the same wording as its index entry,
-apart from initial capitalisation. Change both together.
+`HARNESS.md` index entries are the pointers agents read when selecting a
+workflow or skill, so each must carry its triggers. Keep each frontmatter
+`description` the same wording as its index entry, apart from initial
+capitalisation. Change both together.
+
+Index skills intended to be invoked directly in a `HARNESS.md` Skills
+section, following the workflow index format and stating when to read a
+skill. List skills used only within a workflow in the step that uses
+them, not in the index. Add the section with its first entry rather than
+as an empty placeholder.
 
 Entry-point links instruct consumers what to read; Markdown provides no
 automatic imports or instruction authority. Preserve applicability and
