@@ -4,12 +4,9 @@ Read this guidance before executing a workflow.
 
 ## Guidance
 
-Read Default entries whenever this entry point is activated. Report missing
-or unreadable required guidance rather than silently proceeding without it.
-
-- [Judgement](../judgement.md)
-  - **Applies to:** all workflow execution.
-  - **Read policy:** Default.
+Read the [Agent Harness](../HARNESS.md) and follow its loading
+convention, unless it is already loaded. Report missing or unreadable
+required guidance rather than silently proceeding without it.
 
 ## Work Items
 
@@ -115,6 +112,11 @@ and `research-invitation-expiry-001` identifies an assignment within it.
 
 Keep step definitions in the reusable workflow document. Record their
 execution state and progress in the work-item-local workflow record.
+
+When delegating an assignment, require the subagent to load the harness
+entry point and any skill or document standard the assignment uses. It
+does not inherit the coordinating agent's loaded guidance. The assignment
+defines its scope; loading the harness does not widen it.
 
 ## Workflow Working Files
 

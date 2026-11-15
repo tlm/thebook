@@ -1,21 +1,12 @@
 # Skill Operating Context
 
-Read this guidance before executing a skill. Use the harness routing
-convention: read Default entries whenever this entry point is activated,
-and follow the routing instructions in linked entry points. Report missing
-or unreadable required guidance rather than silently proceeding without it.
+Read this guidance before executing a skill.
 
 ## Guidance
 
-- [Security](../security/GUIDANCE.md)
-  - **Applies to:** all skill execution.
-  - **Read policy:** Default.
-- [Language](../language.md)
-  - **Applies to:** written language, spelling, and style.
-  - **Read policy:** Default.
-- [Judgement](../judgement.md)
-  - **Applies to:** all skill execution.
-  - **Read policy:** Default.
+Read the [Agent Harness](../HARNESS.md) and follow its loading
+convention, unless it is already loaded. Report missing or unreadable
+required guidance rather than silently proceeding without it.
 
 Do not assume a subagent inherits the coordinating agent's conversation or
 loaded guidance. Load the required guidance explicitly before starting the

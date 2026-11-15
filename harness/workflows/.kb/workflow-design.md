@@ -67,10 +67,13 @@ reviews, comparisons, and document composition when their inputs and
 expected outputs can be bounded. Delegation is not a requirement to split
 every activity or a substitute for managing the coordinator's context.
 
-Supply selected current inputs, a focused question, relevant guidance,
-expected output, and action boundaries. Do not assume inherited context or
-file-writing capability. Define delivery and persistence responsibilities
-before assigning work, and verify that returned results were retained.
+Supply selected current inputs, a focused question, expected output, and
+action boundaries. Require the subagent to load the harness entry point
+and any skill or document standard it uses, following the workflow
+operating context; do not list guidance separately in each step. Do not
+assume inherited context or file-writing capability. Define delivery and
+persistence responsibilities before assigning work, and verify that
+returned results were retained.
 
 Keep user direction, prioritisation, reconciliation, and agreement with
 the coordinator. A delegated recommendation does not establish a product

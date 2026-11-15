@@ -35,6 +35,10 @@ project guidance, security, and source control.
 
 Use `CONTEXT.md` for shared operating instructions that consumers read
 before executing a class of artefacts, currently skills and workflows.
+Route their guidance through `HARNESS.md` and its loading convention
+rather than keeping separate guidance lists. Partial copies of the
+harness defaults drift, and they never reach subagents with conditional
+guidance.
 
 Keep bounded skill instructions in `<skill-name>/SKILL.md`, with the
 required discovery frontmatter. Keep individual workflow definitions in
@@ -87,6 +91,19 @@ Contributor instructions and knowledge may live alongside consumer files
 for locality, but remain distinct by role. The document-standards knowledge
 in `harness/documents/.kb/` follows the repository-root convention; it does
 not maintain a separate convention copy.
+
+## Loading Paths
+
+A coordinating agent reaches guidance through `HARNESS.md`. A subagent
+reaches it through the operating context of its skill or workflow, which
+points back to `HARNESS.md`. Agents that have already loaded the harness
+reuse it, so coordinators pay no extra cost. A subagent loads the harness
+defaults, roughly 2,500 words, and any conditional guidance its task
+triggers.
+
+Delegated work without a skill relies on the delegation rule in the
+workflow operating context. Without that rule, such a subagent would load
+no guidance at all.
 
 ## Publication Status
 
