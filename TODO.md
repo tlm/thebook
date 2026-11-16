@@ -59,6 +59,11 @@
   changes, avoid mechanical resolutions, and validate the result.
 - [ ] Define checks for accidental credentials and private data before
   staging or publishing changes.
+- [ ] Design how the harness bootstraps into new or existing projects so
+  they do not depend on this repository. Cover the instruction a project's
+  `AGENTS.md` uses to load it: prefer a local copy, scope its authority to
+  that copy, state that project instructions take precedence, and report
+  rather than proceed when it cannot be read.
 - [ ] Add a publisher test that fails when a `HARNESS.md` workflow or skill
   index entry and its frontmatter `description` differ, once more entries
   need keeping in sync.
