@@ -23,7 +23,9 @@ remain outside this workflow.
 
 ## Approach
 
-- Start with the problem, who experiences it, and what they need to achieve.
+- Start with the problem, who experiences it, and what they need to
+  achieve. Reach a shared understanding with the user through
+  [Problem Framing](#problem-framing) before research begins.
 - Explore ideas with the user. Research existing products, capabilities, or
   alternatives when it helps resolve a question; do not research by default.
 - Work through concrete examples of how someone will use the product.
@@ -34,7 +36,35 @@ remain outside this workflow.
 - Refine a lightweight specification with the user as decisions become
   clear. Keep research out unless it is needed to understand the contract.
 
+## Grilling
+
+Steps use the [Grilling skill](../skills/grilling/SKILL.md) for decision
+rounds with the user. Read it when a step first needs one. Apply these
+settings in every step; each step states only its subject, round focus,
+and recommendation policy.
+
+- **Fact-finding:** a lookup is a single direct check of the environment
+  or work item, such as reading a file, running a command, or consulting
+  a record. Perform lookups inline and note them in the round entry.
+  Route anything else, such as outside sources, comparisons, or assessing
+  evidence, to [Research Framing](#research-framing) as a request. Mark
+  the dependent branch as waiting on research and continue with
+  independent branches.
+- **Output and destination:** keep the step's open frontier and settled
+  decisions in its section's `Current position`. Record each grilling
+  round in the step's existing numbered `Round` or `Review` entries.
+  Number questions within each step's record, continuing across
+  executions.
+- **Completion:** the user's confirmation settles decisions within the
+  invoking step only. It does not approve behaviour owned by other steps,
+  declare the specification complete, or authorise implementation.
+
 ## Steps
+
+Begin with [Problem Framing](#problem-framing). The user must confirm its
+framing before [Research Framing](#research-framing) begins, unless the
+user directs otherwise. Revisit problem framing when later evidence or
+user direction shows the framing is wrong.
 
 [Research Framing](#research-framing),
 [Research Execution](#research-execution), and
@@ -66,6 +96,49 @@ steps. It may begin with an early draft once a candidate direction exists
 and is revisited as that direction changes. Drafting records behaviour;
 it does not decide it.
 
+### Problem Framing
+
+**Name:** `problem-framing`
+
+**Purpose:** reach a shared understanding with the user of the feature
+being developed, separating what is known, assumed, and unknown, before
+research begins.
+
+**Instructions:**
+
+- Read the user's initial prompt and any existing work-item context,
+  including `goal.md` and this step's current position. Restate your
+  understanding of the feature before asking questions, so misreadings
+  surface early.
+- Grill the user with these settings:
+  - **Subject:** the problem, who experiences it, the outcomes they need,
+    constraints, scope, and preferences the user already holds.
+  - **Round focus:** the whole frontier.
+  - **Recommendation policy:** recommended answers.
+- Leave UX and technical choices to the steps that own them. Mark those
+  branches as waiting for [UX Exploration](#ux-exploration) or
+  [Technical Strategy Exploration](#technical-strategy-exploration)
+  rather than deciding them here. Route unknowns that need evidence to
+  [Research Framing](#research-framing) as research leads.
+- Classify what the interview establishes as known, with its source;
+  assumed, labelled as an assumption and attributed; or unknown, with the
+  step it is routed to.
+- Refine `goal.md` when understanding changes, keeping it to a brief
+  description of the goal.
+- Maintain the workflow record's `problem-framing` section with a
+  `Current position` subheading and numbered `Round 001`, `Round 002`, and
+  subsequent round subheadings, continuing across executions.
+- Keep the current position to: the problem statement, affected users,
+  needed outcomes, constraints, scope in and out, what is known, assumed,
+  and unknown with its routing, the open frontier, and the next action.
+- When revisiting the framing, record what changed and identify affected
+  research, proposals, and contracts so their steps can reconcile them.
+
+**Outcome:** a user-confirmed framing of the feature, with known facts,
+labelled assumptions, and routed unknowns. Its unknowns and research
+leads inform [Research Framing](#research-framing); it does not establish
+UX, technical, or contract decisions.
+
 ### Research Framing
 
 **Name:** `research-framing`
@@ -75,9 +148,10 @@ turn the initial problem statement into bounded research briefs.
 
 **Instructions:**
 
-- Extract the problem, intended outcome, and research leads from the user's
-  prompt. Identify additional areas that could materially inform the
-  feature, distinguishing user-provided leads from agent suggestions.
+- Start from the current position of [Problem Framing](#problem-framing):
+  its problem statement, intended outcomes, unknowns, and research leads.
+  Identify additional areas that could materially inform the feature,
+  distinguishing user-provided leads from agent suggestions.
 - Keep each brief focused on one primary question that can be investigated
   independently within a single subagent context. Its result should inform
   a specific aspect of the feature, not survey an entire domain.
@@ -89,8 +163,9 @@ turn the initial problem statement into bounded research briefs.
   prefer the smallest set of assessments that covers the relevant questions,
   rather than creating assignments merely to increase parallelism.
 - Suggest additions or ask questions when useful. Resolve ambiguities that
-  would materially change an assignment, but do not require user approval
-  of the briefs. Ready briefs may pass to
+  would materially change an assignment through grilling, with round focus
+  limited to those ambiguities, but do not require user approval of the
+  briefs. Ready briefs may pass to
   [Research Execution](#research-execution) while
   questions about other briefs remain open.
 - When revisiting framing, read existing briefs first and add or refine
@@ -220,9 +295,11 @@ integrate usable findings, and identify necessary follow-up.
   revised briefs. Record the reason and relevant links; the receiving step
   owns its resulting
   briefs, assignments, and status.
-- Bring product choices to the user rather than treating research as a
-  decision on their behalf. Record limitations that cannot reasonably be
-  resolved and explain how they constrain use of the findings.
+- Bring product choices to the user through grilling, presenting options
+  with any recommendation labelled as the agent's, rather than treating
+  research as a decision on their behalf. Record limitations that cannot
+  reasonably be resolved and explain how they constrain use of the
+  findings.
 - Maintain the workflow record's `research-synthesis` section with a
   `Current position` subheading and numbered `Review 001`, `Review 002`,
   and subsequent review subheadings. Continue numbering across executions.
@@ -429,6 +506,9 @@ implementation decisions.
   in linked working files using `interface-contract-definition` as the
   filename's step component. Preserve earlier versions and identify what
   revisions supersede; attempt numbers are independent of review numbers.
+- Settle questions about semantics, guarantees, and limits with the user
+  through grilling, with round focus limited to the current interface or
+  journey.
 - Assess readiness against consumer use and coverage of important journeys.
   Unresolved questions block agreement when they affect promised behaviour,
   safety or security, an important journey, or existing-contract
@@ -493,13 +573,17 @@ with the user.
   changes. Preserve alternatives until deliberately set aside and record
   why. Do not turn discussion into a one-shot approval gate or require
   every detail to be agreed before independent exploration continues.
+- Settle decisions arising from proposals through grilling, with round
+  focus limited to the current topic. Present choices between candidates
+  as options, with any recommendation labelled as the agent's. Proposals
+  lead the discussion; grilling does not replace concrete examples.
 - Treat agreement on one aspect as progress within exploration, not
   completion of the step. After incorporating and recording feedback,
-  select the next logically related unresolved topic using the current
-  position and user goals. When context is sufficient, continue in the
-  same response with a concrete proposal or meaningful variations and
-  invite feedback. Merely naming the next topic or offering to continue
-  is insufficient; do not require the user to request each transition.
+  select the next related topic from the frontier and the user's goals.
+  When context is sufficient, continue in the same response with a
+  concrete proposal or meaningful variations and invite feedback. Merely
+  naming the next topic or offering to continue is insufficient; do not
+  require the user to request each transition.
 - Keep transitions focused on one useful discussion topic. Briefly connect
   it to settled direction without reopening decisions unnecessarily or
   presenting every remaining question. Advancing discussion does not
@@ -510,7 +594,7 @@ with the user.
   ambiguity prevents a useful proposal. If evidence blocks one topic,
   consider independent topics before pausing for research; do not invent
   assumptions merely to keep the conversation moving.
-- When no useful unresolved UX topic remains, summarise the agreed
+- When the UX frontier is empty, summarise the agreed
   candidate experience, remaining assumptions, and feasibility questions,
   and establish the next action with the user. Do not invent more topics
   or imply that technical validation or specification completion follows
@@ -605,12 +689,15 @@ obligations, and unresolved feasibility questions explicit.
   distinct. Agreement on one aspect is not approval of all its consequences
   or permission to implement. Preserve alternatives until deliberately set
   aside and record why.
+- Settle decisions arising from strategies through grilling, with round
+  focus limited to the current topic. Present choices between strategies
+  as options, with any recommendation labelled as the agent's.
 - After incorporating and recording feedback, continue with the next
-  related unresolved topic when context permits, presenting a concrete
+  related topic from the frontier when context permits, presenting a concrete
   strategy or meaningful variations in the same response. Do not merely
   offer to continue. Keep transitions focused, respect pauses and bounded
   requests, and ask when material ambiguity prevents useful exploration.
-  When no useful topic remains, summarise the current strategies and
+  When the strategy frontier is empty, summarise the current strategies and
   outstanding obligations and establish the next action with the user.
 - Send evidence gaps to [Research Framing](#research-framing), identifying
   the bounded question, affected strategy, and why the answer matters.
@@ -683,7 +770,8 @@ are ready to export it.
   skip embedded images and read only the sections needed for structure
   and tone.
 - Ask the user for metadata the guide requires, such as index, type,
-  authors, and reviewers. Mark unknown values `TBD`; do not invent them.
+  authors, and reviewers, through grilling. Mark unknown values `TBD`; do
+  not invent them.
 - Compose the body from agreed direction. Draw examples from current UX
   proposals and semantics from current contracts. Include system-level
   mechanisms only where consumers observe or depend on them; keep other
@@ -730,9 +818,10 @@ are ready to export it.
   or carried forward, and any status change the user made. Preserve
   outcomes, not transcripts.
 - Only the user changes the document status or declares the specification
-  ready. Before they do, check that no open issue affects promised
-  behaviour, safety or security, an important journey, or existing-contract
-  compatibility.
+  ready. Before they do, grill the user over the remaining open issues,
+  with round focus on all of them and choices between options presented
+  as options. Check that no open issue affects promised behaviour, safety
+  or security, an important journey, or existing-contract compatibility.
 - The Markdown draft is the work product. Do not publish or upload it to
   external document systems unless the user explicitly asks and the action
   is authorised. Do not proceed to implementation.

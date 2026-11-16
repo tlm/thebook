@@ -115,6 +115,7 @@ establish intended record-keeping, not demonstrated execution behaviour.
 No cold-resumption trial of a substantial feature work item is recorded
 here. Efficient resumption therefore remains unverified. No execution of
 the `specification-drafting` step is recorded either, including export of
-a draft to an external document editor. The properties
-above are authoring expectations, not a claim that every existing workflow
-already satisfies them.
+a draft to an external document editor. The workflow's use of the
+grilling skill, including the `problem-framing` step, is also untried.
+The properties above are authoring expectations, not a claim that every
+existing workflow already satisfies them.
