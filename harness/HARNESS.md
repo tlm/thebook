@@ -69,3 +69,23 @@ instructions within the task's scope and the applicable harness guidance.
   specification of its user-facing behaviour and contract, before
   implementation planning.
 - **Read policy:** Conditional.
+
+## Skills
+
+Skills are bounded instructions for a specific task. Each is a `SKILL.md`
+file in `skills/<skill-name>/`, with YAML frontmatter containing a `name`
+and `description`.
+
+This index lists skills intended to be invoked directly. Skills used only
+within a workflow are listed in the step that uses them.
+
+Read a skill only when the user asks for it, a workflow step directs it,
+or its index entry matches the current task and you judge it suitable.
+An index entry alone does not activate a skill.
+
+### [Grilling](skills/grilling/SKILL.md)
+
+- **Applies to:** grilling the user about a plan, design, or decision until
+  you reach a shared understanding, when the user asks to be grilled or to
+  stress-test their thinking, or a skill or workflow step directs it.
+- **Read policy:** Conditional.
