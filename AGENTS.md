@@ -11,7 +11,8 @@ IMPORTANT: Read the `.kb/agents.md` file.
 - [harness/documents/.kb/document-standards.md](harness/documents/.kb/document-standards.md) -
   Purpose, responsibilities, and maintenance of reusable document standards.
 - [harness/skills/.kb/skill-design.md](harness/skills/.kb/skill-design.md) -
-  Conventions for authoring skills, including interaction formats.
+  Conventions for authoring skills: interaction formats, composition, and
+  adapted material.
 - [harness/workflows/.kb/workflow-design.md](harness/workflows/.kb/workflow-design.md) -
   Workflow-authoring properties: resumption, context loading, ownership,
   reconciliation, delegation, and proportionate validation.
