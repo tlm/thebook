@@ -22,7 +22,7 @@ that file at the repository root, including from nested `.kb/` directories.
 This entry point governs development of this repository. It is not the
 consumer harness entry point.
 
-Before starting contributor work, read and follow the local
+Before starting any work in this repository, read and follow the local
 [Agent Harness](harness/HARNESS.md), using its loading convention to load
 default and applicable conditional guidance.
 
