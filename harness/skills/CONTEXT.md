@@ -14,3 +14,10 @@ assignment.
 
 These references identify required guidance; they do not grant permissions
 or replace host instruction precedence, sandboxing, or approval controls.
+
+## Interaction Formats
+
+A skill may define a format for its conversation with the user, such as
+a question layout that uses emoji. Use that format only in conversation.
+Documents and records the skill produces follow the harness guidance for
+documentation.
