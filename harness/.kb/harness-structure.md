@@ -78,6 +78,14 @@ files are published by default. Update the policy and tests before adding
 other non-consumer material under `harness/`. Validate that published
 guidance links do not depend on excluded material.
 
+## §5 - Separation of Concerns
+
+Keep guidance modules free of exceptions for specific consumers. When a
+skill, workflow, or project needs different behaviour, state it in that
+consumer's own context and rely on precedence. If removing a consumer
+would require editing a shared module, the module knows too much. Add
+extension points only when a consumer needs them.
+
 
 # Concepts
 

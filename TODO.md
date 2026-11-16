@@ -64,6 +64,13 @@
   `AGENTS.md` uses to load it: prefer a local copy, scope its authority to
   that copy, state that project instructions take precedence, and report
   rather than proceed when it cannot be read.
+- [ ] Trial the planned skill for authoring guidance on separation of
+  concerns, prompted by a skill exception added to `markdown.md` and then
+  moved to the skill context. Use dependency direction as the concrete
+  rule: shared components do not know their consumers, tested by whether
+  removing a consumer would require editing the shared component. Warn
+  against speculative extension points, and consider design guidance not
+  tied to a language, linked from `go/design.md`.
 - [ ] Add a publisher test that fails when a `HARNESS.md` workflow or skill
   index entry and its frontmatter `description` differ, once more entries
   need keeping in sync.
