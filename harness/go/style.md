@@ -79,6 +79,35 @@ These rules apply to writing Go code.
   pattern obvious, avoids stray zero values if the loop exits early, and
   removes the need for a manual index variable.
 
+## Naming
+
+- Do not declare identifiers that shadow Go's predeclared identifiers.
+  This applies to parameters, named results, receivers, local variables,
+  and package-level declarations. The predeclared identifiers are:
+    - types: `any`, `bool`, `byte`, `comparable`, `complex64`,
+      `complex128`, `error`, `float32`, `float64`, `int`, `int8`,
+      `int16`, `int32`, `int64`, `rune`, `string`, `uint`, `uint8`,
+      `uint16`, `uint32`, `uint64`, `uintptr`
+    - functions: `append`, `cap`, `clear`, `close`, `complex`, `copy`,
+      `delete`, `imag`, `len`, `make`, `max`, `min`, `new`, `panic`,
+      `print`, `println`, `real`, `recover`
+    - constants and zero value: `false`, `iota`, `nil`, `true`
+
+  Choose a name that describes the value's role instead, for example
+  `updated` or `next` rather than `new`, `length` or `n` rather than
+  `len`, and `limit` rather than `max`. Struct fields and method names
+  are exempt because they are always accessed through a selector. Do not
+  rename existing identifiers solely to apply this rule; fix them when
+  changing the surrounding code.
+- Do not declare identifiers that shadow a package imported by the same
+  file. This applies to parameters, named results, receivers, and local
+  variables, even when the shadowed package is not used in that scope.
+  For example, do not name a variable `url` in a file that imports
+  `net/url`, or `path` in a file that imports `path`. Choose a name that
+  describes the value's role, such as `endpoint` or `parsedURL` rather
+  than `url`, and `configPath` rather than `path`. Rename the identifier
+  rather than aliasing the import to avoid the collision.
+
 ## Error Inspection
 
 - Use `errors.Is` to match sentinel errors. Use `errors.As` or
