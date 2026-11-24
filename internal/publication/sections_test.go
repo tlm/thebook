@@ -132,6 +132,29 @@ func (sectionsSuite) TestRebasesSectionLinks(c *tc.C) {
 	})
 }
 
+// TestRefusesOverwrite verifies a section whose path is already published
+// fails rather than replacing that file. Build reserves the section root,
+// so only a publisher defect could reach this guard; the test supplies the
+// conflicting file to publishSections directly.
+func (sectionsSuite) TestRefusesOverwrite(c *tc.C) {
+	existing := []byte("# Existing\n\nNot a section.\n")
+	files := map[string][]byte{
+		"HARNESS.md": []byte(
+			"# Harness\n\n[Errors](go/guide.md#errors)\n",
+		),
+		"go/guide.md":                 sectionSource()["go/guide.md"].Data,
+		"sections/go/guide/errors.md": existing,
+	}
+	err := publishSections(files)
+	c.Assert(err == nil, tc.IsFalse)
+	c.Check(files["sections/go/guide/errors.md"], tc.DeepEquals, existing)
+	c.Check(
+		string(files["HARNESS.md"]),
+		tc.Equals,
+		"# Harness\n\n[Errors](go/guide.md#errors)\n",
+	)
+}
+
 // TestRejectsUnsupportedSections verifies sections without a clean
 // boundary, sections that depend on outside content, and links that cannot
 // be rewritten exactly cause errors rather than incorrect output.
