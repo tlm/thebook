@@ -1,4 +1,4 @@
-package publication_test
+package publication
 
 import (
 	"maps"
@@ -8,14 +8,13 @@ import (
 	"testing/fstest"
 
 	"github.com/juju/tc"
-	"github.com/tlm/thebook/internal/publication"
 )
 
 // sectionsSuite exercises publication of linked heading sections.
 type sectionsSuite struct{}
 
 // publishedSections lists the published section files in a bundle.
-func publishedSections(bundle publication.Bundle) []string {
+func publishedSections(bundle Bundle) []string {
 	var names []string
 	for _, name := range slices.Sorted(maps.Keys(bundle.Files)) {
 		if strings.HasPrefix(name, "sections/") {
@@ -57,7 +56,7 @@ func (sectionsSuite) TestExtractsLinkedSection(c *tc.C) {
 	source["HARNESS.md"].Data = []byte(
 		"# Harness\n\n[Errors](go/guide.md#errors)\n",
 	)
-	bundle, err := publication.Build(source)
+	bundle, err := Build(source)
 	c.Assert(err, tc.IsNil)
 	c.Check(
 		string(bundle.Files["sections/go/guide/errors.md"]),
@@ -90,7 +89,7 @@ func (sectionsSuite) TestKeepsOtherLinks(c *tc.C) {
 	source["go/guide.md"].Data = []byte("# Go Guide\n\n" +
 		"## Errors\n\n[Testing](#testing) and [Errors](guide.md#errors).\n\n" +
 		"## Testing\n\nTest behaviour.\n")
-	bundle, err := publication.Build(source)
+	bundle, err := Build(source)
 	c.Assert(err, tc.IsNil)
 	for name, file := range source {
 		c.Check(bundle.Files[name], tc.DeepEquals, file.Data)
@@ -113,7 +112,7 @@ func (sectionsSuite) TestRebasesSectionLinks(c *tc.C) {
 		"[Details](details.md#details)\n\n" +
 		"### Matching\n\nUse errors.Is.\n\n" +
 		"## Testing\n\nTest behaviour.\n")
-	bundle, err := publication.Build(source)
+	bundle, err := Build(source)
 	c.Assert(err, tc.IsNil)
 	c.Check(
 		string(bundle.Files["sections/go/guide/errors.md"]),
@@ -167,7 +166,7 @@ func (sectionsSuite) TestRejectsUnsupportedSections(c *tc.C) {
 				"# Harness\n\n" + test.harness + "\n",
 			)
 			source["go/guide.md"].Data = []byte(test.guide)
-			_, err := publication.Build(source)
+			_, err := Build(source)
 			tc.Check(c, err == nil, tc.IsFalse)
 		}
 		c.Run(test.name, checkRejected)
@@ -184,7 +183,7 @@ func (sectionsSuite) TestReusesExtractedSection(c *tc.C) {
 	source["go/details.md"].Data = []byte(
 		"# Details\n\nSee [errors](guide.md#errors).\n",
 	)
-	bundle, err := publication.Build(source)
+	bundle, err := Build(source)
 	c.Assert(err, tc.IsNil)
 	c.Check(publishedSections(bundle), tc.DeepEquals, []string{
 		"sections/go/guide/errors.md",
@@ -266,7 +265,7 @@ func (sectionsSuite) TestRewritesLinkForms(c *tc.C) {
 			source["go/guide(1).md"] = &fstest.MapFile{
 				Data: source["go/guide.md"].Data,
 			}
-			bundle, err := publication.Build(source)
+			bundle, err := Build(source)
 			tc.Assert(c, err, tc.IsNil)
 			tc.Check(
 				c,

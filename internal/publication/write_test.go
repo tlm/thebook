@@ -1,4 +1,4 @@
-package publication_test
+package publication
 
 import (
 	"bytes"
@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/juju/tc"
-	"github.com/tlm/thebook/internal/publication"
 )
 
 // writeSuite exercises output creation, permissions and destination safety.
@@ -22,10 +21,10 @@ func TestWrite(t *testing.T) {
 
 // TestCreatesBundle verifies complete output, exact bytes and permissions.
 func (writeSuite) TestCreatesBundle(c *tc.C) {
-	bundle, err := publication.Build(sourceFixture())
+	bundle, err := Build(sourceFixture())
 	c.Assert(err, tc.IsNil)
 	destination := filepath.Join(c.TempDir(), "published")
-	err = publication.Write(bundle, destination)
+	err = Write(bundle, destination)
 	c.Assert(err, tc.IsNil)
 	for name, want := range bundle.Files {
 		path := filepath.Join(destination, filepath.FromSlash(name))
@@ -54,14 +53,14 @@ func (writeSuite) TestInvalidPaths(c *tc.C) {
 		checkInvalidPath := func(c *testing.T) {
 			parent := c.TempDir()
 			destination := filepath.Join(parent, "published")
-			bundle := publication.Bundle{
+			bundle := Bundle{
 				Files: map[string][]byte{
 					"HARNESS.md": []byte("# Harness\n"),
 					name:         []byte("blocked"),
 				},
 				Version: "invalid-path-fixture",
 			}
-			err := publication.Write(bundle, destination)
+			err := Write(bundle, destination)
 			tc.Assert(c, err == nil, tc.Equals, false)
 			_, err = os.Lstat(destination)
 			tc.Check(
@@ -80,10 +79,10 @@ func (writeSuite) TestInvalidPaths(c *tc.C) {
 
 // TestMissingParent verifies Write does not create a missing parent tree.
 func (writeSuite) TestMissingParent(c *tc.C) {
-	bundle, err := publication.Build(sourceFixture())
+	bundle, err := Build(sourceFixture())
 	c.Assert(err, tc.IsNil)
 	parent := filepath.Join(c.TempDir(), "missing")
-	err = publication.Write(bundle, filepath.Join(parent, "published"))
+	err = Write(bundle, filepath.Join(parent, "published"))
 	c.Assert(err == nil, tc.Equals, false)
 	_, err = os.Lstat(parent)
 	c.Check(errors.Is(err, fs.ErrNotExist), tc.Equals, true)
@@ -91,7 +90,7 @@ func (writeSuite) TestMissingParent(c *tc.C) {
 
 // TestRefusesExistingDirectory verifies existing output remains unchanged.
 func (writeSuite) TestRefusesExistingDirectory(c *tc.C) {
-	bundle, err := publication.Build(sourceFixture())
+	bundle, err := Build(sourceFixture())
 	c.Assert(err, tc.IsNil)
 	destination := filepath.Join(c.TempDir(), "published")
 	err = os.Mkdir(destination, 0755)
@@ -99,7 +98,7 @@ func (writeSuite) TestRefusesExistingDirectory(c *tc.C) {
 	path := filepath.Join(destination, "HARNESS.md")
 	err = os.WriteFile(path, []byte("original"), 0644)
 	c.Assert(err, tc.IsNil)
-	err = publication.Write(bundle, destination)
+	err = Write(bundle, destination)
 	c.Assert(err == nil, tc.Equals, false)
 	entries, err := os.ReadDir(destination)
 	c.Assert(err, tc.IsNil)
@@ -111,12 +110,12 @@ func (writeSuite) TestRefusesExistingDirectory(c *tc.C) {
 
 // TestRefusesExistingEmptyDirectory verifies even empty output is refused.
 func (writeSuite) TestRefusesExistingEmptyDirectory(c *tc.C) {
-	bundle, err := publication.Build(sourceFixture())
+	bundle, err := Build(sourceFixture())
 	c.Assert(err, tc.IsNil)
 	destination := filepath.Join(c.TempDir(), "published")
 	err = os.Mkdir(destination, 0755)
 	c.Assert(err, tc.IsNil)
-	err = publication.Write(bundle, destination)
+	err = Write(bundle, destination)
 	c.Assert(err == nil, tc.Equals, false)
 	entries, err := os.ReadDir(destination)
 	c.Assert(err, tc.IsNil)
@@ -125,12 +124,12 @@ func (writeSuite) TestRefusesExistingEmptyDirectory(c *tc.C) {
 
 // TestRefusesExistingFile verifies an existing file is not replaced.
 func (writeSuite) TestRefusesExistingFile(c *tc.C) {
-	bundle, err := publication.Build(sourceFixture())
+	bundle, err := Build(sourceFixture())
 	c.Assert(err, tc.IsNil)
 	destination := filepath.Join(c.TempDir(), "published")
 	err = os.WriteFile(destination, []byte("original"), 0644)
 	c.Assert(err, tc.IsNil)
-	err = publication.Write(bundle, destination)
+	err = Write(bundle, destination)
 	c.Assert(err == nil, tc.Equals, false)
 	data, err := os.ReadFile(destination)
 	c.Assert(err, tc.IsNil)
@@ -139,7 +138,7 @@ func (writeSuite) TestRefusesExistingFile(c *tc.C) {
 
 // TestRefusesSymlinkDestination verifies existing links cannot redirect writes.
 func (writeSuite) TestRefusesSymlinkDestination(c *tc.C) {
-	bundle, err := publication.Build(sourceFixture())
+	bundle, err := Build(sourceFixture())
 	c.Assert(err, tc.IsNil)
 	parent := c.TempDir()
 	target := filepath.Join(parent, "target")
@@ -148,7 +147,7 @@ func (writeSuite) TestRefusesSymlinkDestination(c *tc.C) {
 	destination := filepath.Join(parent, "published")
 	err = os.Symlink(target, destination)
 	c.Assert(err, tc.IsNil)
-	err = publication.Write(bundle, destination)
+	err = Write(bundle, destination)
 	c.Assert(err == nil, tc.Equals, false)
 	entries, err := os.ReadDir(target)
 	c.Assert(err, tc.IsNil)

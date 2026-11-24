@@ -1,4 +1,4 @@
-package publication_test
+package publication
 
 import (
 	"encoding/hex"
@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/juju/tc"
-	"github.com/tlm/thebook/internal/publication"
 )
 
 // buildSuite exercises the publication boundary and generated bundle.
@@ -36,7 +35,7 @@ func TestBuild(t *testing.T) {
 // TestCopiesAndGenerates verifies exact source bytes and generated artefacts.
 func (buildSuite) TestCopiesAndGenerates(c *tc.C) {
 	source := sourceFixture()
-	bundle, err := publication.Build(source)
+	bundle, err := Build(source)
 	c.Assert(err, tc.IsNil)
 	c.Check(len(bundle.Files), tc.Equals, len(source)+3)
 	for name, file := range source {
@@ -61,7 +60,7 @@ func (buildSuite) TestCopiesAndGenerates(c *tc.C) {
 // TestExclusions verifies component exclusions and case-sensitive names.
 func (buildSuite) TestExclusions(c *tc.C) {
 	source := sourceFixture()
-	excluded := []string{
+	excludedNames := []string{
 		".kb/private.md", ".git/config", ".github/workflows/pages.yml",
 		"go/.kb/private.md", "go/.git/config", "go/.github/config",
 		"AGENTS.md", "go/AGENTS.md", ".DS_Store", "go/.DS_Store",
@@ -69,24 +68,24 @@ func (buildSuite) TestExclusions(c *tc.C) {
 		".env", "assets/.private", "assets/.hidden/file.txt",
 		".well-known/example.txt",
 	}
-	for _, name := range excluded {
+	for _, name := range excludedNames {
 		source[name] = &fstest.MapFile{
 			Data: []byte("[bad](missing.md)"),
 		}
 	}
-	included := []string{
+	includedNames := []string{
 		"agents.md", "go/Agents.md", "notes.kb/file.txt",
 	}
-	for _, name := range included {
+	for _, name := range includedNames {
 		source[name] = &fstest.MapFile{Data: []byte("public\r\n")}
 	}
-	bundle, err := publication.Build(source)
+	bundle, err := Build(source)
 	c.Assert(err, tc.IsNil)
-	for _, name := range excluded {
+	for _, name := range excludedNames {
 		_, exists := bundle.Files[name]
 		c.Check(exists, tc.Equals, false)
 	}
-	for _, name := range included {
+	for _, name := range includedNames {
 		c.Check(bundle.Files[name], tc.DeepEquals, source[name].Data)
 	}
 }
@@ -97,9 +96,9 @@ func (buildSuite) TestHiddenMarker(c *tc.C) {
 	source[".nojekyll"] = &fstest.MapFile{
 		Data: []byte("not published"),
 	}
-	baseline, err := publication.Build(sourceFixture())
+	baseline, err := Build(sourceFixture())
 	c.Assert(err, tc.IsNil)
-	bundle, err := publication.Build(source)
+	bundle, err := Build(source)
 	c.Assert(err, tc.IsNil)
 	c.Check(bundle, tc.DeepEquals, baseline)
 }
@@ -132,7 +131,7 @@ func (buildSuite) TestInvalidSources(c *tc.C) {
 	}
 	for _, test := range cases {
 		checkInvalidSource := func(c *testing.T) {
-			_, err := publication.Build(test.source)
+			_, err := Build(test.source)
 			tc.Check(c, err == nil, tc.Equals, false)
 		}
 		c.Run(test.name, checkInvalidSource)
@@ -149,7 +148,7 @@ func (buildSuite) TestRejectsNonRegularFiles(c *tc.C) {
 			source["special"] = &fstest.MapFile{
 				Data: []byte("HARNESS.md"), Mode: mode | 0644,
 			}
-			_, err := publication.Build(source)
+			_, err := Build(source)
 			tc.Check(c, err == nil, tc.Equals, false)
 		}
 		c.Run(mode.String(), checkNonRegularFile)
@@ -162,18 +161,18 @@ func (buildSuite) TestSourceUnchangedOnError(c *tc.C) {
 	source["go/guide.md"].Data = []byte("# Guide\n[Bad](missing.md)\n")
 	before := make(fstest.MapFS, len(source))
 	for name, file := range source {
-		copy := *file
-		copy.Data = append([]byte(nil), file.Data...)
-		before[name] = &copy
+		snapshot := *file
+		snapshot.Data = append([]byte(nil), file.Data...)
+		before[name] = &snapshot
 	}
-	_, err := publication.Build(source)
+	_, err := Build(source)
 	c.Assert(err == nil, tc.Equals, false)
 	c.Check(source, tc.DeepEquals, before)
 }
 
 // TestVersionChanges verifies included edits, additions, deletions and renames.
 func (buildSuite) TestVersionChanges(c *tc.C) {
-	baseline, err := publication.Build(sourceFixture())
+	baseline, err := Build(sourceFixture())
 	c.Assert(err, tc.IsNil)
 	cases := []struct {
 		mutate func(fstest.MapFS)
@@ -199,7 +198,7 @@ func (buildSuite) TestVersionChanges(c *tc.C) {
 		checkVersionChange := func(c *testing.T) {
 			source := sourceFixture()
 			test.mutate(source)
-			bundle, err := publication.Build(source)
+			bundle, err := Build(source)
 			tc.Assert(c, err, tc.IsNil)
 			tc.Check(
 				c,
@@ -215,9 +214,9 @@ func (buildSuite) TestVersionChanges(c *tc.C) {
 // TestVersionStable verifies repeat builds, metadata and excluded edits.
 func (buildSuite) TestVersionStable(c *tc.C) {
 	source := sourceFixture()
-	baseline, err := publication.Build(source)
+	baseline, err := Build(source)
 	c.Assert(err, tc.IsNil)
-	repeated, err := publication.Build(source)
+	repeated, err := Build(source)
 	c.Assert(err, tc.IsNil)
 	c.Check(repeated, tc.DeepEquals, baseline)
 	for _, file := range source {
@@ -225,12 +224,12 @@ func (buildSuite) TestVersionStable(c *tc.C) {
 	}
 	source[".kb/private.md"] = &fstest.MapFile{Data: []byte("private")}
 	source["AGENTS.md"] = &fstest.MapFile{Data: []byte("instructions")}
-	changed, err := publication.Build(source)
+	changed, err := Build(source)
 	c.Assert(err, tc.IsNil)
 	c.Check(changed, tc.DeepEquals, baseline)
 	source[".kb/private.md"].Data = []byte("edited")
 	delete(source, "AGENTS.md")
-	changed, err = publication.Build(source)
+	changed, err = Build(source)
 	c.Assert(err, tc.IsNil)
 	c.Check(changed, tc.DeepEquals, baseline)
 
@@ -240,7 +239,7 @@ func (buildSuite) TestVersionStable(c *tc.C) {
 	} {
 		reordered[name] = source[name]
 	}
-	changed, err = publication.Build(reordered)
+	changed, err = Build(reordered)
 	c.Assert(err, tc.IsNil)
 	c.Check(changed, tc.DeepEquals, baseline)
 }

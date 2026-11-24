@@ -1,11 +1,10 @@
-package publication_test
+package publication
 
 import (
 	"testing"
 	"testing/fstest"
 
 	"github.com/juju/tc"
-	"github.com/tlm/thebook/internal/publication"
 )
 
 // linksSuite exercises parsed Markdown destinations and heading anchors.
@@ -88,7 +87,7 @@ func (linksSuite) TestAcceptedLinks(c *tc.C) {
 			source["go/usage notes.md"] = &fstest.MapFile{
 				Data: []byte("# Usage Notes\n"),
 			}
-			_, err := publication.Build(source)
+			_, err := Build(source)
 			tc.Check(c, err, tc.IsNil)
 		}
 		c.Run(test.name, checkAcceptedLink)
@@ -114,7 +113,7 @@ func (linksSuite) TestEscapedDestinations(c *tc.C) {
 			source[test.filename] = &fstest.MapFile{
 				Data: []byte("# Guide\n"),
 			}
-			_, err := publication.Build(source)
+			_, err := Build(source)
 			tc.Check(c, err, tc.IsNil)
 		}
 		c.Run(test.filename, checkEscapedDestination)
@@ -126,7 +125,7 @@ func (linksSuite) TestLiteralEntityFile(c *tc.C) {
 	source := sourceFixture()
 	source["HARNESS.md"].Data = []byte("# Harness\n\n[Guide](a&amp;b.md)\n")
 	source["a&amp;b.md"] = &fstest.MapFile{Data: []byte("# Guide\n")}
-	_, err := publication.Build(source)
+	_, err := Build(source)
 	c.Check(err == nil, tc.IsFalse)
 }
 
@@ -139,7 +138,7 @@ func (linksSuite) TestNestedLinks(c *tc.C) {
 			"[Local](./details.md#details)\n",
 	)
 	source["go/details.md"] = &fstest.MapFile{Data: []byte("# Details\n")}
-	_, err := publication.Build(source)
+	_, err := Build(source)
 	c.Check(err, tc.IsNil)
 }
 
@@ -194,7 +193,7 @@ func (linksSuite) TestRejectedLinks(c *tc.C) {
 			source["AGENTS.md"] = &fstest.MapFile{
 				Data: []byte("agents"),
 			}
-			_, err := publication.Build(source)
+			_, err := Build(source)
 			tc.Check(c, err == nil, tc.Equals, false)
 		}
 		c.Run(test.name, checkRejectedLink)
