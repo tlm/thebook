@@ -49,6 +49,23 @@ func TestSections(t *testing.T) {
 	tc.Run(t, &sectionsSuite{})
 }
 
+// TestEndsAtHigherRankHeading verifies a section ends at the next heading
+// of a higher rank, not only at one of the same rank.
+func (sectionsSuite) TestEndsAtHigherRankHeading(c *tc.C) {
+	source := sectionSource()
+	source["HARNESS.md"].Data = []byte(
+		"# Harness\n\n[Matching](go/guide.md#matching)\n",
+	)
+	bundle, err := Build(source)
+	c.Assert(err, tc.IsNil)
+	c.Check(
+		string(bundle.Files["sections/go/guide/matching.md"]),
+		tc.Equals,
+		"> From [`go/guide.md`](../../../go/guide.md).\n\n"+
+			"### Matching\n\nUse errors.Is.\n\n",
+	)
+}
+
 // TestExtractsLinkedSection verifies a linked heading's section, including
 // its subsections, is published alone and the link is rewritten to it.
 func (sectionsSuite) TestExtractsLinkedSection(c *tc.C) {
@@ -95,6 +112,32 @@ func (sectionsSuite) TestKeepsOtherLinks(c *tc.C) {
 		c.Check(bundle.Files[name], tc.DeepEquals, file.Data)
 	}
 	c.Check(publishedSections(bundle), tc.HasLen, 0)
+}
+
+// TestPublishesMutuallyLinkedSections verifies sections that link to each
+// other are each published once, with links between their files.
+func (sectionsSuite) TestPublishesMutuallyLinkedSections(c *tc.C) {
+	source := sectionSource()
+	source["HARNESS.md"].Data = []byte(
+		"# Harness\n\n[Errors](go/guide.md#errors)\n",
+	)
+	source["go/guide.md"].Data = []byte("# Go Guide\n\n" +
+		"## Errors\n\nSee [Testing](#testing).\n\n" +
+		"## Testing\n\nSee [Errors](#errors).\n")
+	bundle, err := Build(source)
+	c.Assert(err, tc.IsNil)
+	c.Check(
+		string(bundle.Files["sections/go/guide/errors.md"]),
+		tc.Equals,
+		"> From [`go/guide.md`](../../../go/guide.md).\n\n"+
+			"## Errors\n\nSee [Testing](testing.md).\n\n",
+	)
+	c.Check(
+		string(bundle.Files["sections/go/guide/testing.md"]),
+		tc.Equals,
+		"> From [`go/guide.md`](../../../go/guide.md).\n\n"+
+			"## Testing\n\nSee [Errors](errors.md).\n",
+	)
 }
 
 // TestRebasesSectionLinks verifies links inside a section resolve from its
@@ -194,6 +237,35 @@ func (sectionsSuite) TestRejectsUnsupportedSections(c *tc.C) {
 		}
 		c.Run(test.name, checkRejected)
 	}
+}
+
+// TestRemapsDuplicateHeadingIDs verifies a section whose heading text
+// repeats an earlier heading keeps same-section links valid under its new
+// heading ID, and sends links for the earlier heading to that section.
+func (sectionsSuite) TestRemapsDuplicateHeadingIDs(c *tc.C) {
+	source := sectionSource()
+	source["HARNESS.md"].Data = []byte(
+		"# Harness\n\n[Second repeat](go/guide.md#repeat-1)\n",
+	)
+	source["go/guide.md"].Data = []byte("# Go Guide\n\n" +
+		"## Repeat\n\nFirst.\n\n" +
+		"## Repeat\n\nSecond. See [this section](#repeat-1)\n" +
+		"and [the first one](#repeat).\n")
+	bundle, err := Build(source)
+	c.Assert(err, tc.IsNil)
+	c.Check(
+		string(bundle.Files["sections/go/guide/repeat-1.md"]),
+		tc.Equals,
+		"> From [`go/guide.md`](../../../go/guide.md).\n\n"+
+			"## Repeat\n\nSecond. See [this section](#repeat)\n"+
+			"and [the first one](repeat.md).\n",
+	)
+	c.Check(
+		string(bundle.Files["sections/go/guide/repeat.md"]),
+		tc.Equals,
+		"> From [`go/guide.md`](../../../go/guide.md).\n\n"+
+			"## Repeat\n\nFirst.\n\n",
+	)
 }
 
 // TestReusesExtractedSection verifies every link to the same section, from
@@ -299,4 +371,45 @@ func (sectionsSuite) TestRewritesLinkForms(c *tc.C) {
 		}
 		c.Run(test.name, checkRewritten)
 	}
+}
+
+// TestStableVersionWithSections verifies repeat builds with linked sections
+// are identical, and that editing a linked section changes the version.
+func (sectionsSuite) TestStableVersionWithSections(c *tc.C) {
+	source := sectionSource()
+	source["HARNESS.md"].Data = []byte(
+		"# Harness\n\n[Errors](go/guide.md#errors)\n",
+	)
+	baseline, err := Build(source)
+	c.Assert(err, tc.IsNil)
+	repeated, err := Build(source)
+	c.Assert(err, tc.IsNil)
+	c.Check(repeated, tc.DeepEquals, baseline)
+
+	source["go/guide.md"].Data = []byte("# Go Guide\n\n" +
+		"## Errors\n\nWrap errors with %w.\n\n" +
+		"## Testing\n\nTest behaviour.\n")
+	edited, err := Build(source)
+	c.Assert(err, tc.IsNil)
+	c.Check(edited.Version == baseline.Version, tc.IsFalse)
+}
+
+// TestSupportsSetextHeadings verifies a section starts at an underlined
+// heading's text line and ends before the next underlined heading.
+func (sectionsSuite) TestSupportsSetextHeadings(c *tc.C) {
+	source := sectionSource()
+	source["HARNESS.md"].Data = []byte(
+		"# Harness\n\n[Errors](go/guide.md#errors)\n",
+	)
+	source["go/guide.md"].Data = []byte("Go Guide\n========\n\n" +
+		"Errors\n------\n\nWrap errors.\n\n" +
+		"Testing\n-------\n\nTest behaviour.\n")
+	bundle, err := Build(source)
+	c.Assert(err, tc.IsNil)
+	c.Check(
+		string(bundle.Files["sections/go/guide/errors.md"]),
+		tc.Equals,
+		"> From [`go/guide.md`](../../../go/guide.md).\n\n"+
+			"Errors\n------\n\nWrap errors.\n\n",
+	)
 }
