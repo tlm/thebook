@@ -1,7 +1,7 @@
 # Preface
 
 This document defines the harness publication boundary, local build
-command, and content-version contract.
+command, section publication, and content-version contract.
 
 IMPORTANT: Read the `.kb/agents.md` file.
 
@@ -22,13 +22,14 @@ source tree is otherwise a decision to publish. Do not rely on Git ignore
 rules or a file being untracked to keep it out of publication. Never put
 secrets there.
 
-The generated root paths `index.html` and `version.txt` are reserved;
-source collisions cause build failure. Source `.nojekyll` is excluded like
-other hidden files; the program generates its own empty marker. Included
-symlinks and non-regular files cause build failure rather than being
-followed. A future requirement for a public hidden path, such as
-`.well-known/`, needs an explicit, tested policy exception. Dot prefixes
-are a publication convention, not a security boundary for secret storage.
+The generated root paths `index.html`, `sections/`, and `version.txt` are
+reserved; source collisions cause build failure. Source `.nojekyll` is
+excluded like other hidden files; the program generates its own empty
+marker. Included symlinks and non-regular files cause build failure
+rather than being followed. A future requirement for a public hidden
+path, such as `.well-known/`, needs an explicit, tested policy exception.
+Dot prefixes are a publication convention, not a security boundary for
+secret storage.
 
 ## §2 - Content Version
 
@@ -66,6 +67,27 @@ Code examples are not links. Raw HTML links and external URLs are not
 validated or fetched. Use relative links, not site-root paths that would
 lose the GitHub project-site prefix. Queries do not change the target file.
 
+## §4 - Section Publication
+
+A link from one published Markdown file to a heading in another publishes
+that heading's section as `sections/<file without .md>/<anchor>.md` and
+rewrites the link to it, dropping the fragment and keeping any query. The
+section runs to the next heading at the top level with the same or a
+higher rank, includes its subsections, and opens with a link to its source
+file. Same-document links, links without a fragment, and external links
+are not rewritten.
+
+Extract each section once from the original source bytes and reuse its
+path for later links. Rebase links inside a section to its location; a
+fragment link there is published as a section in turn, unless it names a
+heading within the same section. A section path already published for
+anything else is a publisher defect and fails the build rather than
+replacing the file.
+
+Fail the build rather than publish an approximation. This covers headings
+nested in another block, sections whose links depend on content outside
+them, and links that do not reparse to the intended destinations.
+
 
 # Concepts
 
@@ -91,13 +113,26 @@ The old source `harness/index.md` is replaced by the generated HTML entry.
 The root HTML page links to `HARNESS.md`, explains loading and version
 comparison, and displays the identifier. `version.txt` contains the same
 64-character digest and a trailing newline for machine retrieval. Other
-consumer files retain their source-relative paths and exact bytes.
+consumer files retain their source-relative paths and exact bytes, except
+for links rewritten to published sections.
 
 Comparing identifiers detects a different bundle. A matching identifier
 does not imply that an agent has loaded every module applicable to a new
 task. Multi-request reads from a moving Pages deployment can span versions;
 checking the identifier before and after a load can detect such a change,
 but this publisher does not provide immutable versioned URLs.
+
+## Section Loading
+
+Consumers fetch guidance from the published site, where an agent reads a
+whole file to reach any part of it. Section publication lets a link that
+needs one heading load only that section. Agents reading the source
+checkout still read whole files. Some agent fetch tools summarise pages
+rather than returning them verbatim, so the saving depends on the agent.
+
+The heading anchor becomes part of a published path. Renaming a heading
+that another file links to changes that path; link validation reports
+any reference left behind.
 
 ## Deployment Boundary
 
