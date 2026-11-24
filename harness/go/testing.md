@@ -9,6 +9,18 @@ These rules apply when writing or modifying Go tests.
 - In an existing project, follow its established testing libraries and
   patterns, including standard-library testing where that is the
   convention. Do not introduce `tc` solely to replace them.
+- Write tests in the package under test, using the same package clause,
+  so they can reach internal logic without changing the package's API.
+  Use an external `_test` package only when it is the project's
+  established convention for that package, when it is needed to avoid an
+  import cycle, or for testable examples that should show the package as
+  callers use it.
+- Do not export identifiers or add `export_test.go` hooks solely so that
+  tests in an external package can reach unexported code. Place those
+  tests in the package under test instead.
+- Sharing the package does not relax contract-driven testing. Test
+  through the public API where practical, and keep tests of internal
+  logic focused, as described below.
 - For test files that do not define direct tests or suites, follow the same
   section and alphabetical ordering rules as non-test Go files.
 - Use table tests when input/output combinations are the main concern.
