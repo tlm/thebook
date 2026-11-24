@@ -119,7 +119,7 @@ func (buildSuite) TestInvalidSources(c *tc.C) {
 		}},
 	}
 	for _, name := range []string{
-		"index.html", "version.txt",
+		"index.html", "sections", "version.txt",
 	} {
 		for _, mode := range []fs.FileMode{0644, fs.ModeDir | 0755} {
 			source := sourceFixture()

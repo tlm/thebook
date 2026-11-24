@@ -50,6 +50,12 @@ guidance applicable to a new task has already been loaded.</p>
 // special files, missing guidance, reserved paths, and invalid local Markdown
 // links cause errors. External URLs are not fetched.
 //
+// A link from one Markdown file to a heading in another is rewritten to a
+// standalone copy of that heading's section, published once under
+// sections/, so consumers can fetch only the section a link needs. Links
+// that cannot be rewritten exactly cause errors. Other files keep their
+// source bytes.
+//
 // Version hashes sorted paths and bytes, including the index with an empty
 // version field. The final version field and version.txt are excluded to
 // avoid a self-reference. File permissions and timestamps are not hashed.
@@ -106,6 +112,14 @@ func Build(source fs.FS) (Bundle, error) {
 	if err != nil {
 		return Bundle{}, fmt.Errorf("validating harness links: %w", err)
 	}
+	err = publishSections(files)
+	if err != nil {
+		return Bundle{}, fmt.Errorf("publishing linked sections: %w", err)
+	}
+	err = validateLinks(files)
+	if err != nil {
+		return Bundle{}, fmt.Errorf("validating published links: %w", err)
+	}
 	delete(files, "version.txt")
 	version := contentVersion(files)
 	files["index.html"] = fmt.Appendf(nil, indexTemplate, version)
@@ -145,7 +159,7 @@ func excluded(name string) bool {
 // reserved identifies root output paths owned by the publisher.
 func reserved(name string) bool {
 	switch name {
-	case "index.html", "version.txt":
+	case "index.html", sectionRoot, "version.txt":
 		return true
 	default:
 		return false
