@@ -91,6 +91,7 @@ to review and implement the feature's contract.
 - Open with a short overview of how the section is organised and the scope
   of this iteration. State first-pass limitations, deferred support, and
   hard design constraints where readers would otherwise assume them.
+  State any change to existing behaviour by its effect on the consumer.
 - Organise subtopics by consumer, journey, or area of the contract, not by
   workflow step or research assignment.
 - Ground each subtopic in worked examples: configuration fragments,
@@ -169,8 +170,18 @@ Required. Record the document's progress in a table:
 
 - Write in direct, neutral, professional Australian English, unless the
   user's organisation requires another variety.
-- Assume the reader knows the product. Explain feature-specific terms once
-  and use terminology consistently.
+- Assume the reader knows the product, but not the work that produced the
+  specification. Treat terms coined during that work as unknown to the
+  reader.
+- Explain each term the specification introduces where it is first used
+  in reading order, at least in a clause, even when a fuller definition
+  follows. Make clear that the term is new, so the reader does not take
+  it for product knowledge they lack. Describe the thing instead of
+  naming it when the term is used only once or twice.
+- Use terminology consistently.
+- Do not let a reference to another section stand in for a statement.
+  Say what happens in plain words, then point to the detail. The
+  sentence must still make sense with the reference removed.
 - Keep paragraphs short. Prefer concrete examples and named behaviour cases
   over abstract description.
 - Present agreed behaviour as the proposal under review. Do not label
@@ -189,6 +200,9 @@ Before presenting a draft for user review, check:
 - Does the abstract accurately summarise the body?
 - Can a reader who knows the product understand the specification without
   opening the work item?
+- Reading from the top, is each introduced term explained where it first
+  appears, and does each sentence still say what happens without its
+  reference to another section?
 - Does every behaviour stated in the body trace to agreed direction, with
   no new behaviour introduced during composition?
 - Are important failure and recovery cases covered with observable

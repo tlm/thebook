@@ -804,6 +804,11 @@ are ready to export it.
   the allocated output path or return instructions, and the instruction
   not to introduce behaviour. Review the result against the guide's
   completion review before presenting it.
+- Before presenting a draft, consider a cold read by a subagent given
+  only the draft, without the workflow record or conversation. Ask it to
+  report terms used before they are explained and statements it cannot
+  follow. Set aside reports that are product knowledge the reader has
+  and revise the rest.
 - Maintain the workflow record's `specification-drafting` section with a
   `Current position` subheading and numbered `Review 001`, `Review 002`,
   and subsequent review subheadings, continuing across executions.

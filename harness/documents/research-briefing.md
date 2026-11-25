@@ -85,7 +85,7 @@ alongside substantive claims in the body.
   picture of the research rather than see only generic topic labels.
 - Use tables for genuinely comparable information. Avoid paragraph-length
   cells and tables that make the material harder to read.
-- Define unfamiliar terms once and use terminology consistently.
+- Define unfamiliar terms at first use and use terminology consistently.
 - Distinguish evidence, inference, proposals, and agreed decisions through
   clear wording. Preserve uncertainty and conflicting evidence.
 - Place references alongside substantive factual claims. Link to reviewed
