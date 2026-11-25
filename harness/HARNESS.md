@@ -39,6 +39,7 @@ read, not instruction precedence.
 | [Judgement](judgement.md) | All agent work | Default |
 | [Source control](source-control/GUIDANCE.md) | Staging, committing, amending or rebasing, or handling unreachable commits | Conditional |
 | [Go](go/GUIDANCE.md) | Writing, changing, or reviewing Go code, tests, or docs | Conditional |
+| [Fusion](fusion/GUIDANCE.md) | Operating Autodesk Fusion to inspect, create, or change designs | Conditional |
 | [Markdown](documents/markdown.md) | Writing or modifying Markdown | Conditional |
 
 ## Workflows
