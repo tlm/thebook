@@ -76,7 +76,9 @@
   need keeping in sync.
 - [ ] Add Fusion manufacturing guidance for each process (FDM printing,
   CNC and laser cutting, woodworking), loaded only when that process
-  applies: clearances, minimum features, stock, and export formats.
+  applies: clearances, minimum features, stock, export formats, and
+  orienting parts for the process without changing the orientation the
+  design is modelled in.
 - [ ] Check the Fusion guidance against the tools the built-in Fusion MCP
   server actually provides, particularly inspection, undo, interference
   checks, and screenshots.
