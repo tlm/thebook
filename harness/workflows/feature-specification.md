@@ -50,11 +50,11 @@ and recommendation policy.
   evidence, to [Research Framing](#research-framing) as a request. Mark
   the dependent branch as waiting on research and continue with
   independent branches.
-- **Output and destination:** keep the step's open frontier and settled
-  decisions in its section's `Current position`. Record each grilling
-  round in the step's existing numbered `Round` or `Review` entries.
-  Number questions within each step's record, continuing across
-  executions.
+- **Output and destination:** keep the step's open frontier, deferred
+  questions with what they wait on, and settled decisions in its
+  section's `Current position`. Record each grilling round in the step's
+  existing numbered `Round` or `Review` entries. Number questions within
+  each step's record, continuing across executions.
 - **Completion:** the user's confirmation settles decisions within the
   invoking step only. It does not approve behaviour owned by other steps,
   declare the specification complete, or authorise implementation.

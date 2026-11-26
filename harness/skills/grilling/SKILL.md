@@ -34,6 +34,8 @@ otherwise.
   a tracked research process.
 - **Round focus:** which open questions each round asks. Default: the
   whole frontier. A caller may limit rounds to a current topic.
+- **Pacing:** how many questions each message asks. Default: one. A
+  caller may ask for a round's questions together.
 - **Recommendation policy:** Default: give a recommended answer for each
   question. A caller may require options instead, with any recommendation
   labelled as yours.
@@ -55,8 +57,13 @@ guessing at answers you have not heard.
 
 ### Rounds
 
-- Work in rounds. Ask the frontier, within the round focus, in a single
-  round using the round format below. Then wait for the user's answers.
+- Work in rounds. A round covers the frontier, within the round focus.
+- Following the pacing setting, ask one question, wait for the user's
+  answer, then ask the next. Use the round format below.
+- Ask the most consequential question first. State each question's
+  place in the round, such as "2 of 7", so the user can see how much
+  remains without reading it all.
+- Give the remaining questions together when the user asks for them.
 - Hold a question for a later round when it depends on another question
   still open in the current one.
 - After each round, record what was settled, recompute the frontier, and
@@ -76,10 +83,36 @@ guessing at answers you have not heard.
   answer. A recommendation is not a decision, and an unanswered question
   stays open.
 
+### Showing the Question
+
+- Give the user what they need to answer in the message that asks. Do
+  not rely on them recalling earlier discussion or sharing your framing.
+- Where the question concerns something the user can see, show it before
+  asking: a worked example in the form its consumer meets, such as a
+  command with output, a configuration fragment, or an exchange. Show
+  each option in the same form so the difference is visible.
+- Keep explanation around the example to a sentence or two. Ask plainly
+  when a question has no such form, such as one about goals or audience.
+  Do not invent an example to fill the format.
+
+### Deferred Questions
+
+- The user may defer a question or say they cannot answer it yet.
+  Accept that as an answer. Do not press, and do not ask it again in
+  the same round.
+- Note what a deferred question waits on, if the user says. Hold the
+  questions that depend on it and carry on with the rest.
+- Do not settle a deferred question by assumption or by your
+  recommendation.
+- Raise deferred questions again when what they wait on arrives, when
+  the user asks, and before finishing.
+
 ### Finishing
 
-- The interview is complete when the frontier is empty: every branch
-  visited and nothing silently assumed.
+- The interview is complete when the frontier is empty and each deferred
+  question has been raised again: every branch visited and nothing
+  silently assumed. A question the user leaves deferred is recorded as
+  open, not settled.
 - Confirm with the user that you have reached a shared understanding
   before acting on the outcome. Then follow the completion setting.
 - If the user pauses or stops early, keep the open frontier according to
@@ -93,16 +126,18 @@ recommended answer. When the recommendation policy requires options, list
 them, label any recommendation as yours, and ask the user to choose.
 
 ```text
-❓ **Q1 - <question title>**: <the question, with context and any options>
+❓ **Q3 - <question title>** (2 of 7)
+
+<worked example of the situation, where the question has one>
+
+<each option, shown in the same form>
+
+<the question, in a sentence>
 
 ➡️ <recommended answer, or options with your recommendation labelled>
-
----
-
-❓ **Q2 - <question title>**: <the question>
-
-➡️ <recommended answer>
 ```
+
+When asking several questions together, separate them with `---`.
 
 Treat a reply as settling only the questions it clearly addresses. Carry
 any question it leaves unanswered into the next round. This format is for
@@ -112,9 +147,9 @@ guidance.
 ## Output
 
 Follow the output setting. When recording the outcome, include settled
-decisions with any reasoning the user gave, open questions and what they
-wait on, assumptions the user accepted, and facts found with their
-sources.
+decisions with any reasoning the user gave, open and deferred questions
+and what they wait on, assumptions the user accepted, and facts found
+with their sources.
 
 ## Attribution
 
