@@ -20,6 +20,22 @@ bodies, or to combine the bodies of a finished part, is a judgement for
 each case. Name every body by its role, such as `drillClearance`, and
 report which bodies were left in place and why.
 
+## Orientation
+
+- Model each part in the orientation it has in use: the way it sits, is
+  mounted, or is handled by the person using it. Align up in use with
+  the design's up axis, and the front in use with the front view.
+- Agents SHOULD NOT orient a model to suit a manufacturing process, such
+  as laying a panel flat for cutting or turning a part to print without
+  supports. Orientation for manufacture is chosen later, in the
+  manufacturing setup or slicer, without changing the design.
+- In assembly and hybrid designs, model each component where it sits in
+  the assembly, not in the position it will be made in.
+- When a part has no single orientation in use, choose the one a user
+  would most expect and report the choice.
+- Follow the orientation an existing design already uses. Do not
+  reorient existing geometry unless the user asks.
+
 ## Naming
 
 - Use camelCase for parameters, components, bodies, sketches, and named
